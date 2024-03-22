@@ -9,6 +9,8 @@ public class MtgConfig {
     private String packetName;
     private String mapperName;
     private String poName;
+
+    private String tableName;
     private File outputPath;
 
     public boolean isGenMapper() {
@@ -57,5 +59,13 @@ public class MtgConfig {
 
     public void setOutputPath(File outputPath) {
         this.outputPath = outputPath;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }

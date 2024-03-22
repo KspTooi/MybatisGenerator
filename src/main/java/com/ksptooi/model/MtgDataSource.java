@@ -4,38 +4,31 @@ import java.io.File;
 
 public class MtgDataSource {
 
-    private boolean genMapper = true;
-
-    private boolean genPo = true;
-
     private String driverName;
 
-    private String dsUrl;
+    private String dbHost;
 
     private String dbName;
 
-    private String dsUserName;
+    private String dbUserName;
 
-    private String dsPassword;
+    private String dbPassword;
 
+    private String params;
 
-    public MtgDataSource genMapper(boolean i){
-        genMapper = i;
-        return this;
-    }
-
-    public MtgDataSource genPo(boolean i){
-        genPo = i;
-        return this;
-    }
 
     public MtgDataSource driverName(String i){
         driverName = i;
         return this;
     }
 
-    public MtgDataSource dsUrl(String i){
-        dsUrl = i;
+    public MtgDataSource params(String i){
+        params = i;
+        return this;
+    }
+
+    public MtgDataSource dbHost(String i){
+        dbHost = i;
         return this;
     }
 
@@ -44,24 +37,37 @@ public class MtgDataSource {
         return this;
     }
 
-    public MtgDataSource dsUserName(String i){
-        dsUserName = i;
+    public MtgDataSource dbUserName(String i){
+        dbUserName = i;
         return this;
     }
 
-    public MtgDataSource dsPassword(String i){
-        dsPassword = i;
+    public MtgDataSource dbPassword(String i){
+        dbPassword = i;
         return this;
     }
 
-    public MtgDataSource output(File i){
-        output = i;
-        return this;
+    public String getDriverName() {
+        return driverName;
     }
 
-    public MtgDataSource packetName(String i){
-        packetName = i;
-        return this;
+    public String getDbHost() {
+        return dbHost;
     }
 
+    public String getDbName() {
+        return dbName;
+    }
+
+    public String getDbUserName() {
+        return dbUserName;
+    }
+
+    public String getDbPassword() {
+        return dbPassword;
+    }
+
+    public String getParams() {
+        return params;
+    }
 }

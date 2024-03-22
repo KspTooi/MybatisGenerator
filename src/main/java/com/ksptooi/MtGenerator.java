@@ -2,22 +2,90 @@ package com.ksptooi;
 
 import com.ksptooi.model.MtgConfig;
 import com.ksptooi.model.MtgDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+// Import necessary classes for MySQL Connection
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 public class MtGenerator {
 
-    private MtgDataSource dataSource;
+    private final static Logger log = LoggerFactory.getLogger(MtGenerator.class);
 
+    private final MtgDataSource dataSource;
     private MtgConfig config;
+
+    private Connection dsConn;
 
     public MtGenerator(MtgDataSource ds, MtgConfig config){
         this.dataSource = ds;
         this.config = config;
+        initDataSource();
     }
 
-
-    //初始化数据源
+    // Initialization method for DataSource
     private void initDataSource(){
+        try{
+
+            Class.forName(dataSource.getDriverName());
+
+            String url = "jdbc:mysql://#{host}/#{database}#{params}";
+            url = url.replace("#{host}", dataSource.getDbHost());
+            url = url.replace("#{database}", dataSource.getDbName());
+            url = url.replace("#{params}", dataSource.getParams());
+            dsConn = DriverManager.getConnection(url, dataSource.getDbUserName(), this.dataSource.getDbPassword());
+
+            log.info("数据源初始化成功:{}",url);
+
+        }catch(Exception e){
+            // Handle errors for Class.forName
+            e.printStackTrace();
+        }
+    }
+
+
+    public void generate() {
+
+        try {
+
+            if (dsConn == null || dsConn.isClosed()) {
+                log.error("执行生成时出现错误,数据源未初始化.");
+                return;
+            }
+
+            String tableName = config.getTableName();
+            DatabaseMetaData dbm = dsConn.getMetaData();
+            ResultSet tables = dbm.getTables(null, null, tableName, null);
+            if (!tables.next()) {
+                log.error("执行生成时出现错误 指定的表不存在:{}", tableName);
+                return;
+            }
+
+            if(config.isGenMapper()){
+                generateMapper();
+            }
+
+            if(config.isGenPo()){
+                generatePo();
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void generateMapper(){
 
     }
+
+    private void generatePo(){
+
+    }
+
+
 
 }
