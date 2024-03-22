@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ksptooi.app.mapper.KeywordMapper">
+
+    <!-- 表实体出参映射-->
+    <resultMap id="HotkeyWordPo" type="com.ksptooi.app.model.po.HotKeywordPo">
+
+    </resultMap>
+
+    <sql id="tableCol">
+
+    </sql>
+
+    <sql id="poVal">
+
+    </sql>
+
+    <sql id="where">
+
+    </sql>
+
+    <insert id="insert" parameterType="string">
+
+    </insert>
+
+    <insert id="insertOrUpdate" parameterType="string">
+
+    </insert>
+
+    <insert id="insertList">
+
+    </insert>
+
+    <delete id="removeBy">
+
+    </delete>
+
+    <select id="getBy">
+
+    </select>
+
+    <update id="updateBy">
+
+    </update>
+
+    <select id="getOne">
+
+    </select>
+
+    <select id="getMany">
+
+    </select>
+
+
+</mapper>
