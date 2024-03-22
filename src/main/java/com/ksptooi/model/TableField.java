@@ -4,6 +4,10 @@ public class TableField {
 
     private String name;
 
+    private String javaFieldName;
+
+    private String javaGetterName;
+
     private String type;
 
     private String javaType;
@@ -41,4 +45,22 @@ public class TableField {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public String getJavaFieldName() {
+        return javaFieldName;
+    }
+
+    public void setJavaFieldName(String javaFieldName) {
+        this.javaFieldName = javaFieldName;
+    }
+
+    public String getJavaGetterName() {
+        return javaGetterName;
+    }
+
+    public void setJavaGetterName(String javaGetterName) {
+        this.javaGetterName = javaGetterName;
+    }
+
+
 }

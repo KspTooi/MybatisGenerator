@@ -58,9 +58,14 @@ public class DatabaseTools {
 
                 TableField tableField = new TableField();
                 tableField.setName(name);
+                tableField.setJavaFieldName(toJavaName(name));
+                tableField.setJavaGetterName(toJavaGetterName(toJavaName(name)));
                 tableField.setType(type);
                 tableField.setJavaType(typeMapper.get(type));
                 tableField.setComment(comment);
+                if(comment == null || comment.isBlank()){
+                    tableField.setComment("");
+                }
                 tableFields.add(tableField);
             }
             resultSet.close();
@@ -69,6 +74,23 @@ public class DatabaseTools {
         }
         return tableFields;
 
+    }
+
+
+    private String toJavaGetterName(String fieldName){
+        char[] chars = fieldName.toCharArray();
+        chars[0] = Character.toUpperCase(chars[0]);
+        return new String(chars);
+    }
+
+    private String toJavaName(String fieldName){
+        String[] words = fieldName.split("_");
+        StringBuilder javaName = new StringBuilder(words[0].toLowerCase());
+        for (int i = 1; i < words.length; i++) {
+            javaName.append(Character.toUpperCase(words[i].charAt(0)))
+                    .append(words[i].substring(1).toLowerCase());
+        }
+        return javaName.toString();
     }
 
 }

@@ -122,8 +122,11 @@ public class MtGenerator {
 
         File out = new File(config.getOutputPath(),config.getPoName() + ".java");
         Template t = VelocityWrapper.getTemplate("po.ftl");
-        VelocityWrapper.mergeAndOutput(t,vc,out);
 
+        List<TableField> fieldsByTable = dbt.getFieldsByTable(config.getTableName());
+        vc.put("fields",fieldsByTable);
+
+        VelocityWrapper.mergeAndOutput(t,vc,out);
     }
 
 
