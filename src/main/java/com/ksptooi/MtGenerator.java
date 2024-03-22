@@ -1,8 +1,10 @@
 package com.ksptooi;
 
+import com.ksptooi.app.DatabaseTools;
 import com.ksptooi.app.VelocityWrapper;
 import com.ksptooi.model.MtgConfig;
 import com.ksptooi.model.MtgDataSource;
+import com.ksptooi.model.TableField;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.Velocity;
@@ -20,6 +22,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Properties;
 
 public class MtGenerator {
@@ -29,6 +32,8 @@ public class MtGenerator {
     private final MtgDataSource dataSource;
     private MtgConfig config;
     private Connection dsConn;
+
+    private DatabaseTools dbt;
 
     public MtGenerator(MtgDataSource ds, MtgConfig config){
         this.dataSource = ds;
@@ -59,6 +64,13 @@ public class MtGenerator {
             dsConn = DriverManager.getConnection(url, dataSource.getDbUserName(), this.dataSource.getDbPassword());
 
             log.info("数据源初始化成功:{}",url);
+
+            dbt = new DatabaseTools(dsConn);
+
+            List<TableField> zskTagRule = dbt.getFieldsByTable("zsk_tag_rule");
+
+            System.out.println(zskTagRule);
+
 
         }catch(Exception e){
             // Handle errors for Class.forName
@@ -104,36 +116,17 @@ public class MtGenerator {
 
     private void generatePo(){
 
-        VelocityWrapper.init(dataSource.getTemplatePath());
-
         final VelocityContext vc = new VelocityContext();
         vc.put("packetNamePo",config.getPacketNamePo());
         vc.put("poName",config.getPoName());
 
-        try {
-            // read the template
-            Template t = VelocityWrapper.getTemplate("po.ftl");
-
-            // create a writer
-            StringWriter writer = new StringWriter();
-
-
-            // fill the template
-            t.merge(vc, writer);
-
-            // get the path for the new file
-            Path outputPath = Paths.get(config.getOutputPath().getPath(), config.getPoName() + ".java");
-
-            // create and write new file with contents from writer
-            try (FileWriter fileWriter = new FileWriter(outputPath.toFile())) {
-                fileWriter.write(writer.toString());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        File out = new File(config.getOutputPath(),config.getPoName() + ".java");
+        Template t = VelocityWrapper.getTemplate("po.ftl");
+        VelocityWrapper.mergeAndOutput(t,vc,out);
 
     }
+
+
 
 
 

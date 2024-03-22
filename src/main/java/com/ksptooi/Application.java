@@ -24,7 +24,7 @@ public class Application {
 
         c.setPacketName("com.ksptooi.app");
         c.setPacketNameMapper("com.ksptooi.app.mapper");
-        c.setPacketNameMapper("com.ksptooi.app.model.po");
+        c.setPacketNamePo("com.ksptooi.app.model.po");
 
         c.setPrimaryField("sid");
         c.setMapperName("Test");
