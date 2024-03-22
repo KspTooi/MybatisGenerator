@@ -16,6 +16,8 @@ public class MtgDataSource {
 
     private String params;
 
+    private String templatePath;
+
 
     public MtgDataSource driverName(String i){
         driverName = i;
@@ -47,6 +49,11 @@ public class MtgDataSource {
         return this;
     }
 
+    public MtgDataSource templatePath(String i){
+        templatePath = i;
+        return this;
+    }
+
     public String getDriverName() {
         return driverName;
     }
@@ -69,5 +76,9 @@ public class MtgDataSource {
 
     public String getParams() {
         return params;
+    }
+
+    public String getTemplatePath() {
+        return templatePath;
     }
 }

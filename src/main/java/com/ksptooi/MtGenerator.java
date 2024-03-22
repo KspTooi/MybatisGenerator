@@ -1,15 +1,26 @@
 package com.ksptooi;
 
+import com.ksptooi.app.VelocityWrapper;
 import com.ksptooi.model.MtgConfig;
 import com.ksptooi.model.MtgDataSource;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.Template;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// Import necessary classes for MySQL Connection
+import java.io.File;
+import java.io.StringWriter;
+import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.Properties;
 
 public class MtGenerator {
 
@@ -17,7 +28,6 @@ public class MtGenerator {
 
     private final MtgDataSource dataSource;
     private MtgConfig config;
-
     private Connection dsConn;
 
     public MtGenerator(MtgDataSource ds, MtgConfig config){
@@ -29,6 +39,16 @@ public class MtGenerator {
     // Initialization method for DataSource
     private void initDataSource(){
         try{
+
+            File tPath = new File(dataSource.getTemplatePath());
+
+            if(!tPath.exists() || !tPath.isDirectory()){
+                log.error("VE初始化失败 模板路径无效:{}",tPath);
+                return;
+            }
+
+            VelocityWrapper.init(dataSource.getTemplatePath());
+            log.info("VE初始化成功:{}",tPath);
 
             Class.forName(dataSource.getDriverName());
 
@@ -83,6 +103,35 @@ public class MtGenerator {
     }
 
     private void generatePo(){
+
+        VelocityWrapper.init(dataSource.getTemplatePath());
+
+        final VelocityContext vc = new VelocityContext();
+        vc.put("packetNamePo",config.getPacketNamePo());
+        vc.put("poName",config.getPoName());
+
+        try {
+            // read the template
+            Template t = VelocityWrapper.getTemplate("po.ftl");
+
+            // create a writer
+            StringWriter writer = new StringWriter();
+
+
+            // fill the template
+            t.merge(vc, writer);
+
+            // get the path for the new file
+            Path outputPath = Paths.get(config.getOutputPath().getPath(), config.getPoName() + ".java");
+
+            // create and write new file with contents from writer
+            try (FileWriter fileWriter = new FileWriter(outputPath.toFile())) {
+                fileWriter.write(writer.toString());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

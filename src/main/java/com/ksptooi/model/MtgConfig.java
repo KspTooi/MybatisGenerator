@@ -9,8 +9,10 @@ public class MtgConfig {
     private String packetName;
     private String mapperName;
     private String poName;
-
     private String tableName;
+    private String primaryField;
+    private String packetNamePo;
+    private String packetNameMapper;
     private File outputPath;
 
     public boolean isGenMapper() {
@@ -67,5 +69,29 @@ public class MtgConfig {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    public String getPrimaryField() {
+        return primaryField;
+    }
+
+    public void setPrimaryField(String primaryField) {
+        this.primaryField = primaryField;
+    }
+
+    public String getPacketNamePo() {
+        return packetNamePo;
+    }
+
+    public void setPacketNamePo(String packetNamePo) {
+        this.packetNamePo = packetNamePo;
+    }
+
+    public String getPacketNameMapper() {
+        return packetNameMapper;
+    }
+
+    public void setPacketNameMapper(String packetNameMapper) {
+        this.packetNameMapper = packetNameMapper;
     }
 }

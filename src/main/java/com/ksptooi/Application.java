@@ -15,15 +15,22 @@ public class Application {
                 .dbName("databrain")
                 .dbUserName("root")
                 .dbPassword("root")
-                .params("?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8");
+                .params("?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8")
+                .templatePath("C:\\InternalDev\\KspTooiProject\\MysqlTableGenerator\\src\\main\\resources\\freemarker\\");
 
         MtgConfig c = new MtgConfig();
         c.setGenMapper(true);
         c.setGenPo(true);
-        c.setPacketName("com.ksptooi");
+
+        c.setPacketName("com.ksptooi.app");
+        c.setPacketNameMapper("com.ksptooi.app.mapper");
+        c.setPacketNameMapper("com.ksptooi.app.model.po");
+
+        c.setPrimaryField("sid");
         c.setMapperName("Test");
         c.setPoName("Test");
         c.setTableName("zsk_tag_rule");
+
         c.setOutputPath(new File("C://Output/"));
 
         MtGenerator mtg = new MtGenerator(ds,c);
