@@ -112,6 +112,19 @@ public class MtGenerator {
 
     private void generateMapper(){
 
+
+        //生成Mapper接口
+        final VelocityContext vc = new VelocityContext();
+        vc.put("packetNameMapper",config.getPacketNameMapper());
+        vc.put("packetNamePo",config.getPacketNamePo());
+        vc.put("poName",config.getPoName());
+        vc.put("mapperName",config.getMapperName());
+
+        File out = new File(config.getOutputPath(),config.getMapperName() + ".java");
+        Template t = VelocityWrapper.getTemplate("mapper.ftl");
+
+        VelocityWrapper.mergeAndOutput(t, vc, out);
+
     }
 
     private void generatePo(){

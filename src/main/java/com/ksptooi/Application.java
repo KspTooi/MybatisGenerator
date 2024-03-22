@@ -27,8 +27,8 @@ public class Application {
         c.setPacketNamePo("com.ksptooi.app.model.po");
 
         c.setPrimaryField("sid");
-        c.setMapperName("Test");
-        c.setPoName("Test");
+        c.setMapperName("ZskTagRuleMapper");
+        c.setPoName("ZskTagRulePo");
         c.setTableName("zsk_tag_rule");
 
         c.setOutputPath(new File("C://Output/"));
