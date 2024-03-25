@@ -22,7 +22,7 @@ public class DatabaseTools {
         initTypeMapper();
     }
 
-    public void initTypeMapper(){
+    private void initTypeMapper(){
         // MySQL to Java Type Mapping
         typeMapper.put("CHAR", "String");
         typeMapper.put("VARCHAR", "String");

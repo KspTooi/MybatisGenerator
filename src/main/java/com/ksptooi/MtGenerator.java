@@ -64,13 +64,7 @@ public class MtGenerator {
             dsConn = DriverManager.getConnection(url, dataSource.getDbUserName(), this.dataSource.getDbPassword());
 
             log.info("数据源初始化成功:{}",url);
-
             dbt = new DatabaseTools(dsConn);
-
-            List<TableField> zskTagRule = dbt.getFieldsByTable("zsk_tag_rule");
-
-            System.out.println(zskTagRule);
-
 
         }catch(Exception e){
             // Handle errors for Class.forName
@@ -98,20 +92,39 @@ public class MtGenerator {
 
             if(config.isGenMapper()){
                 generateMapper();
+                generateMapperXML();
             }
 
             if(config.isGenPo()){
                 generatePo();
             }
 
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void generateMapper(){
+    private void generateMapperXML(){
 
+        final VelocityContext vc = new VelocityContext();
+        vc.put("packetNameMapper",config.getPacketNameMapper());
+        vc.put("mapperName",config.getMapperName());
+        vc.put("packetNamePo",config.getPacketNamePo());
+        vc.put("poName",config.getPoName());
+        vc.put("tableName",config.getTableName());
+
+
+        List<TableField> fieldsByTable = dbt.getFieldsByTable(config.getTableName());
+
+        //字段MAP映射
+        vc.put("fieldsByTable",fieldsByTable);
+
+        File out = new File(config.getOutputPath(),config.getMapperName() + ".xml");
+        Template t = VelocityWrapper.getTemplate("mapper_xml.ftl");
+        VelocityWrapper.mergeAndOutput(t,vc,out);
+    }
+
+    private void generateMapper(){
 
         //生成Mapper接口
         final VelocityContext vc = new VelocityContext();

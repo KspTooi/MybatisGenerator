@@ -12,7 +12,7 @@ public interface ${mapperName}{
 
     int insertOrUpdate(@Param("val")${poName} val);
 
-    int insertList(@Param("val")List<${poName}> val);
+    int insertList(@Param("data")List<${poName}> data);
 
     int removeBy(@Param("val")Long val);
 

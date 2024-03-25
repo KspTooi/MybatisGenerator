@@ -1,179 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="${basePackage}.dao.I${upperClassName}Dao">
+<mapper namespace="${packetNameMapper}.${mapperName}">
 
+	<resultMap id="poMap" type="${packetNamePo}.${poName}">
+		#foreach ($field in $fieldsByTable)
+		<result column="${field.name}" property="${field.javaFieldName}"/>
+		#end
+	</resultMap>
 
-	<resultMap id="poMap" type="${basePackage}.model.po.${upperClassName}">
-		${poMap}
-	</resultMap>		
-
-
-	<sql id="tableColumns">
-		${tableColumns}
-	</sql>
-    
-
-	<sql id="tableColumnsWithT">
-		${tableColumnsWithT}
+	<!-- 表所有参数-->
+	<sql id="tableCol">
+		#foreach ($field in $fieldsByTable)
+		`${field.name}`#if($foreach.hasNext),#end
+		#end
 	</sql>
 
-
-	<sql id="poValues">
-		${poValues}
+	<!-- 实体所有参数-->
+	<sql id="poVal">
+		#foreach ($field in $fieldsByTable)
+		#{val.${field.javaFieldName}}#if($foreach.hasNext),#end
+		#end
 	</sql>
 
-
-	<sql id="poClause">
+	<sql id="where">
 		<where>
-			1 = 1
-			${poClause}
+			#foreach ($field in $fieldsByTable)
+			<if test="val.${field.javaFieldName}!=null">and ${field.name} = #{val.${field.javaFieldName}}}</if>
+			#end
 		</where>
 	</sql>
-	
 
-	<insert id="add" parameterType="${basePackage}.model.po.${upperClassName}">
-		<if test="values!=null">
-			insert into ${tableName}
-			(
-			<include refid="tableColumns" />
-			)
-			values
-			(
-			<include refid="poValues" />
-			)
+	<insert id="insert" parameterType="${packetNamePo}.${poName}">
+		<if test="val!=null">
+			INSERT INTO ${tableName}(<include refid="tableCol" />)
+			VALUES(<include refid="poVal"/>)
 		</if>
 	</insert>
-	
 
-	<insert id="saveOrUpdate" parameterType="${basePackage}.model.po.${upperClassName}">
-		<if test="values!=null">
-			insert into ${tableName}
-			(
-			<include refid="tableColumns" />
-			)
-			values
-			(
-			<include refid="poValues" />
-			)
-			${duplicateKey}
+	<insert id="insertOrUpdate" parameterType="${packetNamePo}.${poName}">
+		<if test="val!=null">
+			INSERT INTO ${tableName}(<include refid="tableCol" />)
+			VALUES(<include refid="poVal"/>)
+			ON DUPLICATE KEY UPDATE
+			#foreach ($field in $fieldsByTable)
+			${field.name} = values(${field.name})#if($foreach.hasNext),#end
+			#end
 		</if>
 	</insert>
-	
 
-	<insert id="addList" parameterType="list">
-		insert into ${tableName}
-		(
-		<include refid="tableColumns" />
-		)
-		values
-		<foreach collection="data" item="values" index="index"
-			separator=",">
-			(
-			<include refid="poValues" />
-			)
-		</foreach>
-	</insert>
-	
-
-	<insert id="saveOrUpdateList" parameterType="list">
-		insert into ${tableName}
-		(
-		<include refid="tableColumns" />
-		)
-		values
-		<foreach collection="data" item="values" index="index"
-			separator=",">
-			(
-			<include refid="poValues" />
-			)
-		</foreach>
-		${duplicateKey}
-	</insert>
-		
-
-	<delete id="delByPrimaryKey" parameterType="${priDataType}">
-		<if test="${priFormatColumnName}!=null">
-			delete from ${tableName}
-			where ${priColumnName} = #{${priFormatColumnName}}
-		</if>
-	</delete>
-	
-
-	<delete id="delList" parameterType="list">
-		<if test="list != null">
-			delete from ${tableName} where ${priColumnName} in
-			<foreach item="item" collection="list" open="(" separator=","
-				close=")">
-				#{item}
+	<insert id="insertList" parameterType="list">
+		<if test="val!=null">
+			INSERT INTO ${tableName}(<include refid="tableCol" />)
+			VALUES
+			<foreach collection="data" item="val" index="index" separator=",">
+				(<include refid="poVal"/>)
 			</foreach>
 		</if>
+	</insert>
+
+	<delete id="removeBy">
+
 	</delete>
-			
 
-	<select id="getByPrimaryKey" parameterType="${priDataType}" resultMap="poMap">
-		select
-		<include refid="tableColumnsWithT" />
-		from ${tableName} as t
-		where ${priColumnName} = #{${priFormatColumnName}}
+	<select id="getBy">
+
 	</select>
-	
 
-	<select id="getByPrimaryKeys" parameterType="list" resultMap="poMap">
-		<if test="list != null">
-			select 
-			<include refid="tableColumnsWithT" />
-			from ${tableName} as t 
-			where ${priColumnName} in
-			<foreach item="item" collection="list" open="(" separator=","
-				close=")">
-				#{item}
-			</foreach>
-		</if>
-	</select>
-	
+	<update id="updateBy">
 
-	<update id="updateByPrimaryKey" parameterType="${basePackage}.model.po.${upperClassName}">
-		<if test="record != null and record.${priFormatColumnName} !=null">
-			${updateByPrimaryKey} 
-		</if>
 	</update>
-		
 
-	<select id="get${upperClassName}" parameterType="map"
-		resultMap="poMap">
-		<if test="where != null">
-			select
-			<include refid="tableColumnsWithT" />
-			from ${tableName} as t
-
-			<include refid="poClause" />
-			limit 1
-		</if>
+	<select id="getOne" parameterType="${packetNamePo}.${poName}" resultMap="poMap" >
+		SELECT <include refid="tableCol"/> FROM ${tableName}
+		<include refid="where"/> LIMIT 1
 	</select>
-	
 
-	<select id="getList" parameterType="map"
-		resultMap="poMap">
-		select
-		<include refid="tableColumnsWithT" />
-		from ${tableName} as t
-		<if test="where != null">
-
-		    <include refid="poClause" />
-		</if>
-		<if
-			test="limitStart != null and limitStart >= 0 and count !=null and count >0">
-			limit ${limitStart} , ${count}
-		</if>
+	<select id="getMany" parameterType="${packetNamePo}.${poName}" resultMap="poMap">
+		SELECT <include refid="tableCol"/> FROM ${tableName}
+		<include refid="where"/>
 	</select>
-	
 
-	<select id="count" parameterType="${basePackage}.model.po.${upperClassName}" resultType="${priDataType}">
-		select count(1) from ${tableName} as t
-		<if test="where != null">
-		    <include refid="poClause" />
-		</if>
-	</select>
-		
 </mapper>
