@@ -22,7 +22,6 @@ public class GeneratorEntities implements Generator{
     public void generate(MtgGenOptions opt, List<TableField> fields) {
 
         final boolean hasPk = StringUtils.isNotBlank(opt.getPrimaryField());
-
         TableField pk = TableField.getPrimary(fields);
 
         final VelocityContext vc = new VelocityContext();

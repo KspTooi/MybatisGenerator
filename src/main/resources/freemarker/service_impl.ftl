@@ -1,27 +1,48 @@
 package ${packetNameMapper};
 
-import ${packetNamePo}.${poName};
-import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
-@Mapper
-public interface ${mapperName}{
+@Service
+public class ${mapperName}{
 
-    int insert(@Param("val")${poName} val);
+    @Autowired
+    private ZskLawApplyMapper zskLawApplyMapper;
 
-    int insertOrUpdate(@Param("val")${poName} val);
+    @Override
+    public TableDataInfo selectByDto(ZskLawApplyDto dto ){
+    List<ZskLawApplyVo> vos = zskLawApplyMapper.selectByDto(dto);
+        return BaseController.getDataTable(vos);
+    }
 
-    int insertList(@Param("data")List<${poName}> data);
+    @Override
+    public String saveOrUpdate(ZskLawApplyDto dto) {
+        String dtoId = dto.getSid();
+        Date nowDate = new Date();
+        ZskLawApply zskLawApply = new ZskLawApply();
+        Long uid = SecurityUtils.getLoginUser().getSysUser().getUserId();
 
-    int removeBy(@Param("val")Long val);
+        zskLawApply.setUpdateBy(uid);
+        zskLawApply.setUpdateDate(nowDate);
 
-    ${poName} getBy(@Param("val")Long val);
+        if(dtoId == null){
+            long id = IdWorker.getId();
+            zskLawApply.setCreateDate(nowDate);
+            zskLawApply.setCreateBy(uid);
+            zskLawApplyMapper.insert(zskLawApply);
+            return id + "";
+        } else {
+            zskLawApplyMapper.updateById(zskLawApply);
+        }
+        return dtoId;
+    }
 
-    int updateBy(@Param("val")${poName} val);
+    @Override
+    public ZskLawApply selectById(Long id) {
+        return zskLawApplyMapper.selectById(id);
+    }
 
-    ${poName} getOne(@Param("val")${poName} val);
+    @Override
+    public int deleteByIds(Long[] ids) {
+        return zskLawApplyMapper.logicDeleteByIds(ids,SecurityUtils.getLoginUser().getSysUser().getUserId()+"",new Date());
+    }
 
-    List<${poName}> getMany(@Param("val")${poName} val);
-    
 }

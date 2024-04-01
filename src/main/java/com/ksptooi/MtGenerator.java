@@ -1,9 +1,7 @@
 package com.ksptooi;
 
 import com.ksptooi.autoconfig.*;
-import com.ksptooi.generator.Generator;
-import com.ksptooi.generator.GeneratorController;
-import com.ksptooi.generator.GeneratorEntities;
+import com.ksptooi.generator.*;
 import com.ksptooi.utils.DatabaseTools;
 import com.ksptooi.utils.VelocityWrapper;
 import com.ksptooi.model.config.MtgGenOptions;
@@ -68,19 +66,12 @@ public class MtGenerator {
     private void initDefaultGenerators(){
         if(generators.isEmpty()){
             generators.add(new GeneratorController());
+            generators.add(new GeneratorServices());
+            generators.add(new GeneratorMapper());
             generators.add(new GeneratorEntities());
         }
     }
 
-    public void doAuto(){
-
-        initDefaultAutoConfig();
-
-        for (AutoConfigurator item : autoConfigurators){
-            item.doAutomaticConfiguration(dsConn,config,dbt.getFieldsByTable(config.getTableName()));
-        }
-
-    }
 
     // Initialization method for DataSource
     private void initDataSource(){
@@ -149,60 +140,6 @@ public class MtGenerator {
             ex.printStackTrace();
         }
     }
-
-    private void generateMapperXML(){
-
-        final VelocityContext vc = new VelocityContext();
-        vc.put("packetNameMapper",config.getPkgNameMapper());
-        vc.put("mapperName",config.getMapperName());
-        vc.put("packetNamePo",config.getPkgNamePo());
-        vc.put("poName",config.getPoName());
-        vc.put("tableName",config.getTableName());
-
-
-        List<TableField> fieldsByTable = dbt.getFieldsByTable(config.getTableName());
-
-        //字段MAP映射
-        vc.put("fieldsByTable",fieldsByTable);
-
-        File out = new File(config.getOutputPath(),config.getMapperName() + ".xml");
-        Template t = VelocityWrapper.getTemplate("mapper_xml.ftl");
-        VelocityWrapper.mergeAndOutput(t,vc,out);
-    }
-
-    private void generateMapper(){
-
-        //生成Mapper接口
-        final VelocityContext vc = new VelocityContext();
-        vc.put("packetNameMapper",config.getPkgNameMapper());
-        vc.put("packetNamePo",config.getPkgNamePo());
-        vc.put("poName",config.getPoName());
-        vc.put("mapperName",config.getMapperName());
-
-        File out = new File(config.getOutputPath(),config.getMapperName() + ".java");
-        Template t = VelocityWrapper.getTemplate("mapper.ftl");
-
-        VelocityWrapper.mergeAndOutput(t, vc, out);
-
-    }
-
-    private void generatePo(){
-
-        final VelocityContext vc = new VelocityContext();
-        vc.put("packetNamePo",config.getPkgNamePo());
-        vc.put("poName",config.getPoName());
-
-        File out = new File(config.getOutputPath(),config.getPoName() + ".java");
-        Template t = VelocityWrapper.getTemplate("po.ftl");
-
-        List<TableField> fieldsByTable = dbt.getFieldsByTable(config.getTableName());
-        vc.put("fields",fieldsByTable);
-
-        VelocityWrapper.mergeAndOutput(t,vc,out);
-    }
-
-
-
 
 
 }

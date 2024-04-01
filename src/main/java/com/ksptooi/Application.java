@@ -31,10 +31,9 @@ public class Application {
                 .packetName("com.ksptooi.app")
                 .tableName("jobs")
                 .projectName("zsk-basic-service")
-                .enableLombok(true)
-                .enableSwagger2(true)
+                .enableLombok(false)
+                .enableSwagger2(false)
                 .build();
-
 
         MtGenerator mtg = new MtGenerator(ds,opt);
         mtg.generate();
