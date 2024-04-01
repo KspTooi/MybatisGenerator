@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EntityNameAutoConfigurator implements AutoConfigurator {
 
-    private Logger log = LoggerFactory.getLogger(EntityNameAutoConfigurator.class);
+    private final Logger log = LoggerFactory.getLogger(EntityNameAutoConfigurator.class);
 
     @Override
     public void doAutomaticConfiguration(Connection conn, MtgGenOptions opt, List<TableField> fields) {
@@ -25,7 +25,7 @@ public class EntityNameAutoConfigurator implements AutoConfigurator {
 
         if(StringUtils.isBlank(opt.getControllerName())){
             final String ctlName = clazzName + "Controller";
-            log.info("自动配置ControllerName 为 :{}",ctlName);
+            log.info("自动配置ControllerName为: {}",ctlName);
         }
 
         if(StringUtils.isBlank(opt.getServiceName())){
@@ -37,29 +37,35 @@ public class EntityNameAutoConfigurator implements AutoConfigurator {
                 srvName = "I" + clazzName + "Service";
             }
 
-            log.info("自动配置ServiceName 为 :{}",srvName);
+            log.info("自动配置ServiceName为: {}",srvName);
         }
 
-        if(StringUtils.isBlank(opt.getServiceName())){
-            final String srvName = clazzName + "Service";
-            log.info("自动配置ServiceImplName 为 :{}",srvName);
+        if(StringUtils.isBlank(opt.getServiceImplName())){
+            String srvName = clazzName + "Service";
+
+            //开启了Impl
+            if(opt.isWithImpl()){
+                srvName = clazzName + "ServiceImpl";
+            }
+
+            log.info("自动配置ServiceImplName为: {}",srvName);
         }
 
         if(StringUtils.isBlank(opt.getPoName())){
             final String poName = clazzName + "Po";
-            log.info("自动配置PoName 为 :{}",poName);
+            log.info("自动配置PoName为: {}",poName);
         }
 
         if(StringUtils.isBlank(opt.getMapperName())){
             final String mapperName = clazzName + "Mapper";
-            log.info("自动配置MapperName 为 :{}",mapperName);
+            log.info("自动配置MapperName为: {}",mapperName);
         }
 
     }
 
     @Override
     public String getName() {
-        return "包名称自动配置器";
+        return "类名称自动配置器";
     }
 
 }

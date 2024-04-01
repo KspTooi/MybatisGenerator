@@ -9,7 +9,7 @@ public class MtgGenOptions {
      */
     private boolean genController = true;
     private boolean genService = true;
-    private boolean withImpl = false;
+    private boolean withImpl = true;
     private boolean genPo = true;
     private boolean genMapper = true;
 

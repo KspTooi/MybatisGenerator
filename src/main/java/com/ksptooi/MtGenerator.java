@@ -1,6 +1,9 @@
 package com.ksptooi;
 
 import com.ksptooi.autoconfig.AutoConfigurator;
+import com.ksptooi.autoconfig.EntityNameAutoConfigurator;
+import com.ksptooi.autoconfig.PacketNameAutoConfigurator;
+import com.ksptooi.autoconfig.PrimaryKeyAutoConfigurator;
 import com.ksptooi.generator.Generator;
 import com.ksptooi.utils.DatabaseTools;
 import com.ksptooi.utils.VelocityWrapper;
@@ -29,12 +32,13 @@ public class MtGenerator {
     private Connection dsConn;
     private DatabaseTools dbt;
 
-
     //生成器链
     private List<Generator> generators = new ArrayList<>();
 
     //OPT自动配置链
     private List<AutoConfigurator> autoConfigurators = new ArrayList<>();
+
+
 
 
     public void addAutoConfigurator(AutoConfigurator auto){
@@ -45,6 +49,27 @@ public class MtGenerator {
         this.dataSource = ds;
         this.config = config;
         initDataSource();
+    }
+
+    /**
+     * 初始化默认的自动配置类 提供约定俗成的默认配置
+     */
+    private void initDefaultAutoConfig(){
+        if(autoConfigurators.isEmpty()){
+            autoConfigurators.add(new EntityNameAutoConfigurator());
+            autoConfigurators.add(new PacketNameAutoConfigurator());
+            autoConfigurators.add(new PrimaryKeyAutoConfigurator());
+        }
+    }
+
+    public void doAuto(){
+
+        initDefaultAutoConfig();
+
+        for (AutoConfigurator item : autoConfigurators){
+            item.doAutomaticConfiguration(dsConn,config,dbt.getFieldsByTable(config.getTableName()));
+        }
+
     }
 
     // Initialization method for DataSource

@@ -12,14 +12,14 @@ public class Application {
         String currentDir = System.getProperty("user.dir");
         System.out.println("项目启动路径：" + currentDir);
 
-        return;
-        /*MtgDataSource ds = ConfigFactory.datasource()
+        MtgDataSource ds = ConfigFactory.datasource()
                 .driver("com.mysql.cj.jdbc.Driver")
-                .dbName("skinserver")
+                .host("127.0.0.1:3306")
                 .username("root")
                 .password("root")
                 .params("?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8")
-                .templatePath("C:\\InternalDev\\KspTooiProject\\MysqlTableGenerator\\src\\main\\resources\\freemarker\\")
+                .dbName("skinserver")
+                .templatePath("C:\\InternalDeveloper\\KspTooiProjects\\MysqlTableGenerator\\src\\main\\resources\\freemarker")
                 .build();
 
         MtgGenOptions opt = ConfigFactory.config()
@@ -29,17 +29,14 @@ public class Application {
                 .genPo(true)
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
-                .controllerName(null)
-                .serviceName(null)
-                .serviceImplName(null)
-                .poName(null)
-                .mapperName(null)
                 .tableName("jobs")
                 .build();
 
 
         MtGenerator mtg = new MtGenerator(ds,opt);
-        mtg.generate();*/
+
+        mtg.doAuto();
+        //mtg.generate();
     }
 
 
