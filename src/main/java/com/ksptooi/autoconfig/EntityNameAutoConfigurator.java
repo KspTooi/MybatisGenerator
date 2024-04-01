@@ -60,6 +60,12 @@ public class EntityNameAutoConfigurator implements AutoConfigurator {
             opt.setPoName(poName);
         }
 
+        if(StringUtils.isBlank(opt.getVoName())){
+            final String voName = clazzName + "";
+            log.info("[自动配置]VoName为: {}",voName);
+            opt.setVoName(voName);
+        }
+
         if(StringUtils.isBlank(opt.getMapperName())){
             final String mapperName = clazzName + "Mapper";
             log.info("[自动配置]MapperName为: {}",mapperName);

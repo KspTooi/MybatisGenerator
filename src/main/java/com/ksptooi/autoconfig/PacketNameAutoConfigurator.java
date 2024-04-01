@@ -60,6 +60,12 @@ public class PacketNameAutoConfigurator implements AutoConfigurator{
             opt.setPkgNamePo(pkgNamePo);
         }
 
+        if(StringUtils.isBlank(opt.getPkgNameVo())){
+            String pkgNameVo = pkgName + ".model.vo";
+            log.info("[自动配置]PkgNameVo为: {}",pkgNameVo);
+            opt.setPkgNameVo(pkgNameVo);
+        }
+
         if(StringUtils.isBlank(opt.getPkgNameMapper())){
             String pkgNameMapper = pkgName + ".mapper";
             log.info("[自动配置]PkgNameMapper为: {}",pkgNameMapper);

@@ -18,7 +18,6 @@ public class GeneratorServices implements Generator{
 
     @Override
     public void generate(MtgGenOptions opt, List<TableField> fields) {
-
         final VelocityContext vc = new VelocityContext();
         File out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNamePo()) + "\\"+opt.getPoName() + ".java");
         Template t = VelocityWrapper.getTemplate("po.ftl");

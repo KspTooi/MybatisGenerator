@@ -8,8 +8,8 @@ public class ${mapperName}{
     private ZskLawApplyMapper zskLawApplyMapper;
 
     @Override
-    public TableDataInfo selectByDto(ZskLawApplyDto dto ){
-    List<ZskLawApplyVo> vos = zskLawApplyMapper.selectByDto(dto);
+    public TableDataInfo selectByDto(ZskLawApplyDto dto){
+        List<ZskLawApplyVo> vos = zskLawApplyMapper.selectByDto(dto);
         return BaseController.getDataTable(vos);
     }
 

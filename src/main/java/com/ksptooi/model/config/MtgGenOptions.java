@@ -11,6 +11,7 @@ public class MtgGenOptions {
     private boolean genService = true;
     private boolean withImpl = true;
     private boolean genPo = true;
+    private boolean genVo = true;
     private boolean genMapper = true;
 
     /**
@@ -21,6 +22,7 @@ public class MtgGenOptions {
     private String serviceName;
     private String serviceImplName;
     private String poName;
+    private String voName;
     private String mapperName;
 
     /**
@@ -34,8 +36,9 @@ public class MtgGenOptions {
 
     private String pkgNamePo;
 
-    private String pkgNameMapper;
+    private String pkgNameVo;
 
+    private String pkgNameMapper;
 
     /**
      * 通用配置
@@ -235,5 +238,29 @@ public class MtgGenOptions {
 
     public void setEnableSwagger2(boolean enableSwagger2) {
         this.enableSwagger2 = enableSwagger2;
+    }
+
+    public boolean isGenVo() {
+        return genVo;
+    }
+
+    public void setGenVo(boolean genVo) {
+        this.genVo = genVo;
+    }
+
+    public String getVoName() {
+        return voName;
+    }
+
+    public void setVoName(String voName) {
+        this.voName = voName;
+    }
+
+    public String getPkgNameVo() {
+        return pkgNameVo;
+    }
+
+    public void setPkgNameVo(String pkgNameVo) {
+        this.pkgNameVo = pkgNameVo;
     }
 }

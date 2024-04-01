@@ -121,6 +121,21 @@ public class GenConfigBuilder {
         return this;
     }
 
+    public GenConfigBuilder packetNameVo(String in){
+        target.setPkgNameVo(in);
+        return this;
+    }
+
+    public GenConfigBuilder genVo(boolean in){
+        target.setGenVo(in);
+        return this;
+    }
+
+    public GenConfigBuilder voName(String in){
+        target.setVoName(in);
+        return this;
+    }
+
     public MtgGenOptions build(){
         return target;
     }
