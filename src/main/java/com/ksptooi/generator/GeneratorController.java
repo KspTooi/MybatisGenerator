@@ -44,7 +44,7 @@ public class GeneratorController implements Generator{
         vc.put("pkgNameService",opt.getPkgNameService());
         vc.put("pkgNamePo",opt.getPkgNamePo());
 
-        File out = new File(opt.getOutputPath(),TextConv.pkgToPath(opt.getPkgNameController())+".java");
+        File out = new File(opt.getOutputPath(),TextConv.pkgToPath(opt.getPkgNameController())+"\\"+opt.getControllerName()+".java");
         VelocityWrapper.mergeAndOutput(t,vc,out);
 
     }
