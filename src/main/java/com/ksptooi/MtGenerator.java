@@ -1,9 +1,6 @@
 package com.ksptooi;
 
-import com.ksptooi.autoconfig.AutoConfigurator;
-import com.ksptooi.autoconfig.EntityNameAutoConfigurator;
-import com.ksptooi.autoconfig.PacketNameAutoConfigurator;
-import com.ksptooi.autoconfig.PrimaryKeyAutoConfigurator;
+import com.ksptooi.autoconfig.*;
 import com.ksptooi.generator.Generator;
 import com.ksptooi.utils.DatabaseTools;
 import com.ksptooi.utils.VelocityWrapper;
@@ -59,6 +56,7 @@ public class MtGenerator {
             autoConfigurators.add(new EntityNameAutoConfigurator());
             autoConfigurators.add(new PacketNameAutoConfigurator());
             autoConfigurators.add(new PrimaryKeyAutoConfigurator());
+            autoConfigurators.add(new PathsAutoConfigurator());
         }
     }
 
