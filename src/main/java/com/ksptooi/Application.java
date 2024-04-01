@@ -30,6 +30,9 @@ public class Application {
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
                 .tableName("jobs")
+                .projectName("zsk-basic-service")
+                .enableLombok(true)
+                .enableSwagger2(true)
                 .build();
 
 

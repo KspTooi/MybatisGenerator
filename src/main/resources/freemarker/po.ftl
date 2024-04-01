@@ -1,21 +1,42 @@
 package ${packetNamePo};
 
+
+#if(${enableLombok})
+import lombok.Getter;
+import lombok.Setter;
+#end
+#if(${enableSwagger2})
+import io.swagger.annotations.ApiModelProperty;
+#end
+
+#if(${enableLombok})
+@Getter
+@Setter
+#end
 public class ${poName}{
 
     #foreach ($field in $fields)
-    // ${field.comment}
-    private ${field.javaType} ${field.javaFieldName};
 
+    #if(${field.comment} != "")
+    #if(${enableSwagger2})
+    @ApiModelProperty(value="${field.comment}")
+    #end
+    #if(!${enableSwagger2})
+    //${field.comment}
+    #end
+    #end
+    private ${field.javaType} ${field.javaFieldName};
     #end
 
+    #if(!${enableLombok})
     #foreach ($field in $fields)
-    public ${field.javaType} ${field.javaGetterName}() {
+    public ${field.javaType} get${field.javaGetterName}() {
         return this.${field.javaFieldName};
     }
-
-    public void ${field.javaGetterName}(${field.javaType} ${field.javaFieldName}) {
+    public void set${field.javaGetterName}(${field.javaType} ${field.javaFieldName}) {
         this.${field.javaFieldName} = ${field.javaFieldName};
     }
+    #end
     #end
 
 }

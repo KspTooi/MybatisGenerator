@@ -43,6 +43,14 @@ public class MtgGenOptions {
     private String tableName;
     private String primaryField;
     private File outputPath;
+    private String projectName;
+
+    /**
+     * 组件配置
+     */
+    private boolean enableLombok = false;
+    private boolean enableSlf4J = false;
+    private boolean enableSwagger2 = false;
 
 
     public boolean isGenController() {
@@ -195,5 +203,37 @@ public class MtgGenOptions {
 
     public void setOutputPath(File outputPath) {
         this.outputPath = outputPath;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public boolean isEnableLombok() {
+        return enableLombok;
+    }
+
+    public void setEnableLombok(boolean enableLombok) {
+        this.enableLombok = enableLombok;
+    }
+
+    public boolean isEnableSlf4J() {
+        return enableSlf4J;
+    }
+
+    public void setEnableSlf4J(boolean enableSlf4J) {
+        this.enableSlf4J = enableSlf4J;
+    }
+
+    public boolean isEnableSwagger2() {
+        return enableSwagger2;
+    }
+
+    public void setEnableSwagger2(boolean enableSwagger2) {
+        this.enableSwagger2 = enableSwagger2;
     }
 }

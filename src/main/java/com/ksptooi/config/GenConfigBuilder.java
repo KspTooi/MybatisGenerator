@@ -101,7 +101,25 @@ public class GenConfigBuilder {
         return this;
     }
 
+    public GenConfigBuilder projectName(String in){
+        target.setProjectName(in);
+        return this;
+    }
 
+    public GenConfigBuilder enableLombok(boolean b){
+        target.setEnableLombok(b);
+        return this;
+    }
+
+    public GenConfigBuilder enableSlf4J(boolean b){
+        target.setEnableSlf4J(b);
+        return this;
+    }
+
+    public GenConfigBuilder enableSwagger2(boolean b){
+        target.setEnableSwagger2(b);
+        return this;
+    }
 
     public MtgGenOptions build(){
         return target;

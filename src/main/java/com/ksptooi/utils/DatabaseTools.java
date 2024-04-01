@@ -42,6 +42,10 @@ public class DatabaseTools {
         typeMapper.put("DATE", "Date");
         typeMapper.put("TIME", "Date");
         typeMapper.put("TIMESTAMP", "java.sql.Timestamp");
+        typeMapper.put("BIGINT UNSIGNED", "Long");
+        typeMapper.put("INT UNSIGNED", "Long");
+        typeMapper.put("TINYINT UNSIGNED", "Integer");
+        typeMapper.put("LONGTEXT", "String");
     }
 
     public List<TableField> getFieldsByTable(String tableName){

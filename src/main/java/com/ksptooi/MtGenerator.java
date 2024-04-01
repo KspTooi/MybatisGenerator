@@ -3,6 +3,7 @@ package com.ksptooi;
 import com.ksptooi.autoconfig.*;
 import com.ksptooi.generator.Generator;
 import com.ksptooi.generator.GeneratorController;
+import com.ksptooi.generator.GeneratorEntities;
 import com.ksptooi.utils.DatabaseTools;
 import com.ksptooi.utils.VelocityWrapper;
 import com.ksptooi.model.config.MtgGenOptions;
@@ -67,6 +68,7 @@ public class MtGenerator {
     private void initDefaultGenerators(){
         if(generators.isEmpty()){
             generators.add(new GeneratorController());
+            generators.add(new GeneratorEntities());
         }
     }
 
@@ -129,15 +131,17 @@ public class MtGenerator {
                 return;
             }
 
+            List<TableField> fields = dbt.getFieldsByTable(config.getTableName());
+
             initDefaultAutoConfig();
             initDefaultGenerators();
 
             for (AutoConfigurator item : autoConfigurators){
-                item.doAutomaticConfiguration(dsConn,config,dbt.getFieldsByTable(config.getTableName()));
+                item.doAutomaticConfiguration(dsConn,config,fields);
             }
 
             for(Generator item : generators){
-                item.generate(config,dbt.getFieldsByTable(config.getTableName()));
+                item.generate(config,fields);
             }
 
 

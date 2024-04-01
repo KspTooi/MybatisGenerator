@@ -1,5 +1,7 @@
 package com.ksptooi.model.po;
 
+import java.util.List;
+
 public class TableField {
 
     private String name;
@@ -13,6 +15,8 @@ public class TableField {
     private String javaType;
 
     private String comment;
+
+    private boolean primary;
 
     public String getName() {
         return name;
@@ -62,5 +66,22 @@ public class TableField {
         this.javaGetterName = javaGetterName;
     }
 
+    public boolean isPrimary() {
+        return primary;
+    }
 
+    public void setPrimary(boolean primary) {
+        this.primary = primary;
+    }
+
+    public static TableField getPrimary(List<TableField> fields){
+
+        for(TableField item : fields){
+            if(item.isPrimary()){
+                return item;
+            }
+        }
+
+        return null;
+    }
 }
