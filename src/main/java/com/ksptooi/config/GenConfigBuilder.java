@@ -11,7 +11,6 @@ public class GenConfigBuilder {
         target = new MtgGenOptions();
     }
 
-
     public GenConfigBuilder genController(boolean b){
         target.setGenController(b);
         return this;
@@ -64,6 +63,41 @@ public class GenConfigBuilder {
 
     public GenConfigBuilder mapperName(String in){
         target.setMapperName(in);
+        return this;
+    }
+
+    public GenConfigBuilder tableName(String in) {
+        target.setTableName(in);
+        return this;
+    }
+
+    public GenConfigBuilder primaryField(String in){
+        target.setPrimaryField(in);
+        return this;
+    }
+
+    public GenConfigBuilder packetNameController(String in){
+        target.setPkgNameController(in);
+        return this;
+    }
+
+    public GenConfigBuilder packetNameService(String in){
+        target.setPkgNameService(in);
+        return this;
+    }
+
+    public GenConfigBuilder packetNameServiceImpl(String in){
+        target.setPkgNameServiceImpl(in);
+        return this;
+    }
+
+    public GenConfigBuilder packetNamePo(String in){
+        target.setPkgNamePo(in);
+        return this;
+    }
+
+    public GenConfigBuilder packetNameMapper(String in){
+        target.setPkgNameMapper(in);
         return this;
     }
 

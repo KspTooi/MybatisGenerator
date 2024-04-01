@@ -1,7 +1,8 @@
 package com.ksptooi;
 
-import com.ksptooi.app.DatabaseTools;
-import com.ksptooi.app.VelocityWrapper;
+import com.ksptooi.autoconfig.AutoConfigurator;
+import com.ksptooi.utils.DatabaseTools;
+import com.ksptooi.utils.VelocityWrapper;
 import com.ksptooi.model.config.MtgGenOptions;
 import com.ksptooi.model.config.MtgDataSource;
 import com.ksptooi.model.po.TableField;
@@ -15,6 +16,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MtGenerator {
@@ -24,8 +26,14 @@ public class MtGenerator {
     private final MtgDataSource dataSource;
     private MtgGenOptions config;
     private Connection dsConn;
-
     private DatabaseTools dbt;
+
+    private List<AutoConfigurator> autoConfigurators = new ArrayList<>();
+
+
+    public void addAutoConfigurator(AutoConfigurator auto){
+        autoConfigurators.add(auto);
+    }
 
     public MtGenerator(MtgDataSource ds, MtgGenOptions config){
         this.dataSource = ds;
@@ -99,9 +107,9 @@ public class MtGenerator {
     private void generateMapperXML(){
 
         final VelocityContext vc = new VelocityContext();
-        vc.put("packetNameMapper",config.getPacketNameMapper());
+        vc.put("packetNameMapper",config.getPkgNameMapper());
         vc.put("mapperName",config.getMapperName());
-        vc.put("packetNamePo",config.getPacketNamePo());
+        vc.put("packetNamePo",config.getPkgNamePo());
         vc.put("poName",config.getPoName());
         vc.put("tableName",config.getTableName());
 
@@ -120,8 +128,8 @@ public class MtGenerator {
 
         //生成Mapper接口
         final VelocityContext vc = new VelocityContext();
-        vc.put("packetNameMapper",config.getPacketNameMapper());
-        vc.put("packetNamePo",config.getPacketNamePo());
+        vc.put("packetNameMapper",config.getPkgNameMapper());
+        vc.put("packetNamePo",config.getPkgNamePo());
         vc.put("poName",config.getPoName());
         vc.put("mapperName",config.getMapperName());
 
@@ -135,7 +143,7 @@ public class MtGenerator {
     private void generatePo(){
 
         final VelocityContext vc = new VelocityContext();
-        vc.put("packetNamePo",config.getPacketNamePo());
+        vc.put("packetNamePo",config.getPkgNamePo());
         vc.put("poName",config.getPoName());
 
         File out = new File(config.getOutputPath(),config.getPoName() + ".java");

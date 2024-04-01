@@ -1,4 +1,4 @@
-package com.ksptooi.app;
+package com.ksptooi.utils;
 
 import com.ksptooi.model.po.TableField;
 
@@ -23,7 +23,7 @@ public class DatabaseTools {
     }
 
     private void initTypeMapper(){
-        // MySQL to Java Type Mapping
+        //MySQL to Java Type Mapping
         typeMapper.put("CHAR", "String");
         typeMapper.put("VARCHAR", "String");
         typeMapper.put("LONGVARCHAR", "String");
@@ -73,7 +73,6 @@ public class DatabaseTools {
             exception.printStackTrace();
         }
         return tableFields;
-
     }
 
 

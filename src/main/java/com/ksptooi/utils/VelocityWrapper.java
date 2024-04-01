@@ -1,4 +1,4 @@
-package com.ksptooi.app;
+package com.ksptooi.utils;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

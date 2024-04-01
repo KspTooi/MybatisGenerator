@@ -17,24 +17,31 @@ public class MtgGenOptions {
      * 名称配置
      */
     private String packetName;
-
     private String controllerName;
-
     private String serviceName;
-
     private String serviceImplName;
-
     private String poName;
-
     private String mapperName;
+
+    /**
+     * 包名称配置
+     */
+    private String pkgNameController;
+
+    private String pkgNameService;
+
+    private String pkgNameServiceImpl;
+
+    private String pkgNamePo;
+
+    private String pkgNameMapper;
+
 
     /**
      * 通用配置
      */
     private String tableName;
     private String primaryField;
-    private String packetNamePo;
-    private String packetNameMapper;
     private File outputPath;
 
 
@@ -86,62 +93,6 @@ public class MtgGenOptions {
         this.packetName = packetName;
     }
 
-    public String getMapperName() {
-        return mapperName;
-    }
-
-    public void setMapperName(String mapperName) {
-        this.mapperName = mapperName;
-    }
-
-    public String getPoName() {
-        return poName;
-    }
-
-    public void setPoName(String poName) {
-        this.poName = poName;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public String getPrimaryField() {
-        return primaryField;
-    }
-
-    public void setPrimaryField(String primaryField) {
-        this.primaryField = primaryField;
-    }
-
-    public String getPacketNamePo() {
-        return packetNamePo;
-    }
-
-    public void setPacketNamePo(String packetNamePo) {
-        this.packetNamePo = packetNamePo;
-    }
-
-    public String getPacketNameMapper() {
-        return packetNameMapper;
-    }
-
-    public void setPacketNameMapper(String packetNameMapper) {
-        this.packetNameMapper = packetNameMapper;
-    }
-
-    public File getOutputPath() {
-        return outputPath;
-    }
-
-    public void setOutputPath(File outputPath) {
-        this.outputPath = outputPath;
-    }
-
     public String getControllerName() {
         return controllerName;
     }
@@ -164,5 +115,85 @@ public class MtgGenOptions {
 
     public void setServiceImplName(String serviceImplName) {
         this.serviceImplName = serviceImplName;
+    }
+
+    public String getPoName() {
+        return poName;
+    }
+
+    public void setPoName(String poName) {
+        this.poName = poName;
+    }
+
+    public String getMapperName() {
+        return mapperName;
+    }
+
+    public void setMapperName(String mapperName) {
+        this.mapperName = mapperName;
+    }
+
+    public String getPkgNameController() {
+        return pkgNameController;
+    }
+
+    public void setPkgNameController(String pkgNameController) {
+        this.pkgNameController = pkgNameController;
+    }
+
+    public String getPkgNameService() {
+        return pkgNameService;
+    }
+
+    public void setPkgNameService(String pkgNameService) {
+        this.pkgNameService = pkgNameService;
+    }
+
+    public String getPkgNameServiceImpl() {
+        return pkgNameServiceImpl;
+    }
+
+    public void setPkgNameServiceImpl(String pkgNameServiceImpl) {
+        this.pkgNameServiceImpl = pkgNameServiceImpl;
+    }
+
+    public String getPkgNamePo() {
+        return pkgNamePo;
+    }
+
+    public void setPkgNamePo(String pkgNamePo) {
+        this.pkgNamePo = pkgNamePo;
+    }
+
+    public String getPkgNameMapper() {
+        return pkgNameMapper;
+    }
+
+    public void setPkgNameMapper(String pkgNameMapper) {
+        this.pkgNameMapper = pkgNameMapper;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getPrimaryField() {
+        return primaryField;
+    }
+
+    public void setPrimaryField(String primaryField) {
+        this.primaryField = primaryField;
+    }
+
+    public File getOutputPath() {
+        return outputPath;
+    }
+
+    public void setOutputPath(File outputPath) {
+        this.outputPath = outputPath;
     }
 }

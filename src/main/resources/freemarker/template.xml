@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ksptooi.app.mapper.KeywordMapper">
+<mapper namespace="com.ksptooi.generator.mapper.KeywordMapper">
 
     <!-- 表实体出参映射-->
-    <resultMap id="HotkeyWordPo" type="com.ksptooi.app.model.po.HotKeywordPo">
+    <resultMap id="HotkeyWordPo" type="com.ksptooi.generator.model.po.HotKeywordPo">
 
     </resultMap>
 
