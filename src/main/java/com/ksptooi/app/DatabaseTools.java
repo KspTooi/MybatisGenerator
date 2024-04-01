@@ -1,6 +1,6 @@
 package com.ksptooi.app;
 
-import com.ksptooi.model.TableField;
+import com.ksptooi.model.po.TableField;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

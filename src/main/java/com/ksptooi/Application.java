@@ -1,7 +1,8 @@
 package com.ksptooi;
 
-import com.ksptooi.model.MtgConfig;
-import com.ksptooi.model.MtgDataSource;
+import com.ksptooi.config.ConfigFactory;
+import com.ksptooi.model.config.MtgGenOptions;
+import com.ksptooi.model.config.MtgDataSource;
 
 import java.io.File;
 
@@ -9,16 +10,17 @@ public class Application {
 
     public static void main(String[] args) {
 
-        MtgDataSource ds = new MtgDataSource();
-        ds.driverName("com.mysql.cj.jdbc.Driver")
-                .dbHost("127.0.0.1:3306")
+        MtgDataSource ds = ConfigFactory.datasource()
+                .driver("com.mysql.cj.jdbc.Driver")
                 .dbName("databrain")
-                .dbUserName("root")
-                .dbPassword("root")
+                .username("root")
+                .password("root")
                 .params("?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8")
-                .templatePath("C:\\InternalDev\\KspTooiProject\\MysqlTableGenerator\\src\\main\\resources\\freemarker\\");
+                .templatePath("C:\\InternalDev\\KspTooiProject\\MysqlTableGenerator\\src\\main\\resources\\freemarker\\")
+                .build();
 
-        MtgConfig c = new MtgConfig();
+
+        MtgGenOptions c = new MtgGenOptions();
         c.setGenMapper(true);
         c.setGenPo(true);
 

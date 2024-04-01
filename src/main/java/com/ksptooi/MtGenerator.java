@@ -2,40 +2,32 @@ package com.ksptooi;
 
 import com.ksptooi.app.DatabaseTools;
 import com.ksptooi.app.VelocityWrapper;
-import com.ksptooi.model.MtgConfig;
-import com.ksptooi.model.MtgDataSource;
-import com.ksptooi.model.TableField;
+import com.ksptooi.model.config.MtgGenOptions;
+import com.ksptooi.model.config.MtgDataSource;
+import com.ksptooi.model.po.TableField;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.Template;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.StringWriter;
-import java.io.FileWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Properties;
 
 public class MtGenerator {
 
     private final static Logger log = LoggerFactory.getLogger(MtGenerator.class);
 
     private final MtgDataSource dataSource;
-    private MtgConfig config;
+    private MtgGenOptions config;
     private Connection dsConn;
 
     private DatabaseTools dbt;
 
-    public MtGenerator(MtgDataSource ds, MtgConfig config){
+    public MtGenerator(MtgDataSource ds, MtgGenOptions config){
         this.dataSource = ds;
         this.config = config;
         initDataSource();

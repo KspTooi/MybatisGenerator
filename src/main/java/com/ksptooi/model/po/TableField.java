@@ -1,4 +1,4 @@
-package com.ksptooi.model;
+package com.ksptooi.model.po;
 
 public class TableField {
 

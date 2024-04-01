@@ -1,4 +1,4 @@
-package com.ksptooi.model;
+package com.ksptooi.model.config;
 
 import java.io.File;
 
@@ -19,66 +19,59 @@ public class MtgDataSource {
     private String templatePath;
 
 
-    public MtgDataSource driverName(String i){
-        driverName = i;
-        return this;
-    }
-
-    public MtgDataSource params(String i){
-        params = i;
-        return this;
-    }
-
-    public MtgDataSource dbHost(String i){
-        dbHost = i;
-        return this;
-    }
-
-    public MtgDataSource dbName(String i){
-        dbName = i;
-        return this;
-    }
-
-    public MtgDataSource dbUserName(String i){
-        dbUserName = i;
-        return this;
-    }
-
-    public MtgDataSource dbPassword(String i){
-        dbPassword = i;
-        return this;
-    }
-
-    public MtgDataSource templatePath(String i){
-        templatePath = i;
-        return this;
-    }
-
     public String getDriverName() {
         return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
     }
 
     public String getDbHost() {
         return dbHost;
     }
 
+    public void setDbHost(String dbHost) {
+        this.dbHost = dbHost;
+    }
+
     public String getDbName() {
         return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
     }
 
     public String getDbUserName() {
         return dbUserName;
     }
 
+    public void setDbUserName(String dbUserName) {
+        this.dbUserName = dbUserName;
+    }
+
     public String getDbPassword() {
         return dbPassword;
+    }
+
+    public void setDbPassword(String dbPassword) {
+        this.dbPassword = dbPassword;
     }
 
     public String getParams() {
         return params;
     }
 
+    public void setParams(String params) {
+        this.params = params;
+    }
+
     public String getTemplatePath() {
         return templatePath;
+    }
+
+    public void setTemplatePath(String templatePath) {
+        this.templatePath = templatePath;
     }
 }
