@@ -9,7 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import ${pkgNamePo}.*
+import ${pkgNameVo}.*
 
 @RestController
 @RequestMapping("/${fieldControllerName}")
@@ -22,32 +23,39 @@ public class ${controllerName} {
 
     @ApiOperation("列表查询")
     @PostMapping("/getMany")
-    public TableDataInfo<${poName}> getMany(@RequestBody ${poName} ${fieldPoName}) {
-        return ${fieldServiceName}.getMany(${fieldPoName});
+    public TableDataInfo<${poName}> getMany(@RequestBody ${voName}InVo ${fieldVoName}) {
+        return ${fieldServiceName}.getMany(${fieldVoName});
     }
 
-    @ApiOperation("根据id查询单条记录")
-    @PostMapping("/getById")
-    public R<${poName}> getById(@RequestBody Long id) {
-        if (id == null) {
-            R.fail("id为必填参数");
-        }
-        return R.ok(${fieldServiceName}.getById(id));
-    }
+
 
     @ApiOperation("保存或更新")
     @PostMapping("/saveOrUpdate")
-    public R<${poName}> saveOrUpdate(@RequestBody ${poName} ${fieldPoName}) {
-        return R.ok(${fieldServiceName}.saveOrUpdate(${fieldPoName}));
+    public R<${poName}> saveOrUpdate(@RequestBody ${voName}InVo ${fieldVoName}) {
+        return R.ok(${fieldServiceName}.saveOrUpdate(${fieldVoName}));
     }
 
-    @ApiOperation("根据IDS删除记录")
-    @PostMapping("/{ids}")
-    public R remove(@RequestBody Long[] ids) {
-        if (ids == null || ids.length == 0) {
-            R.fail("ids为必填参数");
+    #foreach ($field in $fields)
+    #if(${field.primary})
+    @ApiOperation("根据主键查询单条记录")
+    @PostMapping("/getBy${field.javaGetterName}")
+    public R<${poName}> getBy${field.javaGetterName}(@RequestBody ${field.javaType} ${field.javaFieldName}) {
+        if (id == null) {
+            R.fail("id为必填参数");
         }
-        return R.ok(${fieldServiceName}.deleteByIds(ids));
+        return R.ok(${fieldServiceName}.getBy${field.javaGetterName}(${field.javaFieldName}));
     }
+
+    @ApiOperation("根据主键删除记录")
+    @PostMapping("/removeBy${field.javaGetterName}")
+    public R removeBy${field.javaGetterName}(@RequestBody ${field.javaType} ${field.javaFieldName}) {
+        if (ids == null) {
+            R.fail("id为必填参数");
+        }
+        return R.ok(${fieldServiceName}.deleteBy${field.javaGetterName}(${field.javaFieldName}));
+    }
+    #end
+    #end
+
 
 }
