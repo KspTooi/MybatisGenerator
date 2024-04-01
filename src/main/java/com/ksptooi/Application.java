@@ -10,7 +10,6 @@ public class Application {
     public static void main(String[] args) {
 
         String currentDir = System.getProperty("user.dir");
-        System.out.println("项目启动路径：" + currentDir);
 
         MtgDataSource ds = ConfigFactory.datasource()
                 .driver("com.mysql.cj.jdbc.Driver")
@@ -19,7 +18,7 @@ public class Application {
                 .password("root")
                 .params("?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8")
                 .dbName("skinserver")
-                .templatePath("C:\\InternalDeveloper\\KspTooiProjects\\MysqlTableGenerator\\src\\main\\resources\\freemarker")
+                .templatePath(currentDir+"\\src\\main\\resources\\freemarker")
                 .build();
 
         MtgGenOptions opt = ConfigFactory.config()

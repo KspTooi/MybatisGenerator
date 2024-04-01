@@ -28,7 +28,7 @@ public class PathsAutoConfigurator implements AutoConfigurator{
                 Path parent = Paths.get(path).getParent();
 
                 if(isMavenProject(parent.toAbsolutePath().toString() + "\\" + opt.getProjectName())){
-                    path = path + "\\" + opt.getProjectName();
+                    path = parent + "\\" + opt.getProjectName() + "\\src\\main\\java";
                     opt.setOutputPath(new File(path));
                     log.info("[自动配置]已识别到Maven项目 配置输出路径为:{}",path);
                     return;

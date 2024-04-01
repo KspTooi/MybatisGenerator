@@ -1,7 +1,7 @@
 package com.ksptooi.app.services;
 
-import com.ksptooi.app.model.po.*
-import com.ksptooi.app.model.vo.*
+import com.ksptooi.app.model.po.*;
+import com.ksptooi.app.model.vo.*;
 
 @Service
 public class JobsService{
