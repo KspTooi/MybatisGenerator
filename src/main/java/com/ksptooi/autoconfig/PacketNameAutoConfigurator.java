@@ -26,18 +26,19 @@ public class PacketNameAutoConfigurator implements AutoConfigurator{
         if(pkgName.endsWith(".")){
             pkgName = pkgName.substring(0,pkgName.length() - 1);
             log.info("重命名PacketName为: {}",pkgName);
+            opt.setPacketName(pkgName);
         }
 
-        if(StringUtils.isBlank(opt.getControllerName())){
+        if(StringUtils.isBlank(opt.getPkgNameController())){
             String pkgNameCtl = pkgName + ".controller";
-            opt.setPkgNameController(pkgNameCtl);
             log.info("自动配置PkgNameController为: {}",pkgNameCtl);
+            opt.setPkgNameController(pkgNameCtl);
         }
 
         if(StringUtils.isBlank(opt.getPkgNameService())){
             String pkgNameService = pkgName + ".services";
-            opt.setPkgNameService(pkgNameService);
             log.info("自动配置PkgNameService为: {}",pkgNameService);
+            opt.setPkgNameService(pkgNameService);
         }
 
         if(StringUtils.isBlank(opt.getPkgNameServiceImpl())){
@@ -49,20 +50,20 @@ public class PacketNameAutoConfigurator implements AutoConfigurator{
                 pkgNameServiceImpl = pkgName + ".services.impl";
             }
 
-            opt.setPkgNameServiceImpl(pkgNameServiceImpl);
             log.info("自动配置PkgNameServiceImpl为: {}",pkgNameServiceImpl);
+            opt.setPkgNameServiceImpl(pkgNameServiceImpl);
         }
 
         if(StringUtils.isBlank(opt.getPkgNamePo())){
             String pkgNamePo = pkgName + ".model.po";
-            opt.setPkgNameServiceImpl(pkgNamePo);
             log.info("自动配置PkgNamePo为: {}",pkgNamePo);
+            opt.setPkgNameServiceImpl(pkgNamePo);
         }
 
         if(StringUtils.isBlank(opt.getPkgNameMapper())){
             String pkgNameMapper = pkgName + ".mapper";
-            opt.setPkgNameMapper(pkgNameMapper);
             log.info("自动配置PkgNameMapper为: {}",pkgNameMapper);
+            opt.setPkgNameMapper(pkgNameMapper);
         }
 
     }

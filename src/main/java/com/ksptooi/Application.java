@@ -34,9 +34,10 @@ public class Application {
 
 
         MtGenerator mtg = new MtGenerator(ds,opt);
+        mtg.generate();
 
-        mtg.doAuto();
         //mtg.generate();
+
     }
 
 

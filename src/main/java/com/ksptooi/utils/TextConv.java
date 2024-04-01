@@ -37,8 +37,9 @@ public class TextConv {
         return camelCaseName.toString();
     }
 
-
-
+    public static String pkgToPath(String pkg){
+        return pkg.replace(".","\\");
+    }
 
 
 

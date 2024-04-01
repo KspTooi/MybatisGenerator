@@ -1,4 +1,4 @@
-package ${pkgNameController};
+package com.ksptooi.app.controller;
 
 import com.ruoyi.common.core.domain.R;
 import com.ruoyi.common.core.web.page.TableDataInfo;
@@ -12,33 +12,33 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/${fieldControllerName}")
-@Api(tags = "${classTableName}")
+@RequestMapping("/jobsController")
+@Api(tags = "Jobs")
 @Slf4j
-public class ${controllerName} {
+public class JobsController {
 
     @Autowired
-    private ${serviceName} ${fieldServiceName};
+    private IJobsService iJobsService;
 
     @ApiOperation("列表查询")
     @PostMapping("/getMany")
-    public TableDataInfo<${poName}> getMany(@RequestBody ${poName} ${fieldPoName}) {
-        return ${fieldServiceName}.getMany(${fieldPoName});
+    public TableDataInfo<JobsPo> getMany(@RequestBody JobsPo jobsPo) {
+        return iJobsService.getMany(jobsPo);
     }
 
     @ApiOperation("根据id查询单条记录")
     @PostMapping("/getById")
-    public R<${poName}> getById(@RequestBody Long id) {
+    public R<JobsPo> getById(@RequestBody Long id) {
         if (id == null) {
             R.fail("id为必填参数");
         }
-        return R.ok(${fieldServiceName}.getById(id));
+        return R.ok(iJobsService.getById(id));
     }
 
     @ApiOperation("保存或更新")
     @PostMapping("/saveOrUpdate")
-    public R<${poName}> saveOrUpdate(@RequestBody ${poName} ${fieldPoName}) {
-        return R.ok(${fieldServiceName}.saveOrUpdate(${fieldPoName}));
+    public R<JobsPo> saveOrUpdate(@RequestBody JobsPo jobsPo) {
+        return R.ok(iJobsService.saveOrUpdate(jobsPo));
     }
 
     @ApiOperation("根据IDS删除记录")
@@ -47,7 +47,7 @@ public class ${controllerName} {
         if (ids == null || ids.length == 0) {
             R.fail("ids为必填参数");
         }
-        return R.ok(${fieldServiceName}.deleteByIds(ids));
+        return R.ok(iJobsService.deleteByIds(ids));
     }
 
 }

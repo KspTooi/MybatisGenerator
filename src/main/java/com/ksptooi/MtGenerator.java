@@ -2,6 +2,7 @@ package com.ksptooi;
 
 import com.ksptooi.autoconfig.*;
 import com.ksptooi.generator.Generator;
+import com.ksptooi.generator.GeneratorController;
 import com.ksptooi.utils.DatabaseTools;
 import com.ksptooi.utils.VelocityWrapper;
 import com.ksptooi.model.config.MtgGenOptions;
@@ -57,6 +58,15 @@ public class MtGenerator {
             autoConfigurators.add(new PacketNameAutoConfigurator());
             autoConfigurators.add(new PrimaryKeyAutoConfigurator());
             autoConfigurators.add(new PathsAutoConfigurator());
+        }
+    }
+
+    /**
+     * 初始化默认的自动生成类 提供约定俗成的默认生成模板
+     */
+    private void initDefaultGenerators(){
+        if(generators.isEmpty()){
+            generators.add(new GeneratorController());
         }
     }
 
@@ -119,14 +129,17 @@ public class MtGenerator {
                 return;
             }
 
-            if(config.isGenMapper()){
-                generateMapper();
-                generateMapperXML();
+            initDefaultAutoConfig();
+            initDefaultGenerators();
+
+            for (AutoConfigurator item : autoConfigurators){
+                item.doAutomaticConfiguration(dsConn,config,dbt.getFieldsByTable(config.getTableName()));
             }
 
-            if(config.isGenPo()){
-                generatePo();
+            for(Generator item : generators){
+                item.generate(config,dbt.getFieldsByTable(config.getTableName()));
             }
+
 
         } catch (Exception ex) {
             ex.printStackTrace();

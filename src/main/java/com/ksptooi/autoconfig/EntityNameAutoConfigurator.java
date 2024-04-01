@@ -26,6 +26,7 @@ public class EntityNameAutoConfigurator implements AutoConfigurator {
         if(StringUtils.isBlank(opt.getControllerName())){
             final String ctlName = clazzName + "Controller";
             log.info("自动配置ControllerName为: {}",ctlName);
+            opt.setControllerName(ctlName);
         }
 
         if(StringUtils.isBlank(opt.getServiceName())){
@@ -38,6 +39,7 @@ public class EntityNameAutoConfigurator implements AutoConfigurator {
             }
 
             log.info("自动配置ServiceName为: {}",srvName);
+            opt.setServiceName(srvName);
         }
 
         if(StringUtils.isBlank(opt.getServiceImplName())){
@@ -49,16 +51,19 @@ public class EntityNameAutoConfigurator implements AutoConfigurator {
             }
 
             log.info("自动配置ServiceImplName为: {}",srvName);
+            opt.setServiceImplName(srvName);
         }
 
         if(StringUtils.isBlank(opt.getPoName())){
             final String poName = clazzName + "Po";
             log.info("自动配置PoName为: {}",poName);
+            opt.setPoName(poName);
         }
 
         if(StringUtils.isBlank(opt.getMapperName())){
             final String mapperName = clazzName + "Mapper";
             log.info("自动配置MapperName为: {}",mapperName);
+            opt.setMapperName(mapperName);
         }
 
     }
