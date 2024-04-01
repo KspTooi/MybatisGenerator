@@ -59,24 +59,34 @@
 		</if>
 	</insert>
 
-	<delete id="removeBy">
-
+	#foreach ($field in $fields)
+	#if(${field.primary})
+	<delete id="removeBy${field.javaGetterName}">
+		DELETE FROM ${tableName} WHERE ${field.name} = #{val}
 	</delete>
 
-	<select id="getBy">
-
+	<select id="getBy${field.javaGetterName}">
+		SELECT <include refid="tableCol"/> FROM ${tableName} WHERE ${field.name} = #{val} limit 1
 	</select>
 
-	<update id="updateBy">
-
+	<update id="updateBy${field.javaGetterName}">
+		<if test="val != null and val.${field.javaFieldName} !=null">
+			UPDATE ${tableName} t SET
+			#foreach ($f1 in $fields)
+			t.${f1.name} = #{val.${f1.javaFieldName}}
+			#end
+			WHERE ${field.name} = #{val.${field.javaFieldName}}
+		</if>
 	</update>
+	#end
+	#end
 
-	<select id="getOne" parameterType="${packetNamePo}.${poName}" resultMap="poMap" >
+	<select id="getOne" parameterType="${pkgNamePo}.${poName}" resultMap="poMap" >
 		SELECT <include refid="tableCol"/> FROM ${tableName}
 		<include refid="where"/> LIMIT 1
 	</select>
 
-	<select id="getMany" parameterType="${packetNamePo}.${poName}" resultMap="poMap">
+	<select id="getMany" parameterType="${pkgNamePo}.${poName}" resultMap="poMap">
 		SELECT <include refid="tableCol"/> FROM ${tableName}
 		<include refid="where"/>
 	</select>

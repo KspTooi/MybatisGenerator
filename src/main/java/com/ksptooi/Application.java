@@ -25,7 +25,7 @@ public class Application {
         MtgGenOptions opt = ConfigFactory.config()
                 .genController(true)
                 .genService(true)
-                .withImpl(true)
+                .withImpl(false)
                 .genPo(true)
                 .genMapper(true)
                 .packetName("com.ksptooi.app")

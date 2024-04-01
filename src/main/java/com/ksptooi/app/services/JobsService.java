@@ -1,13 +1,13 @@
-package com.ksptooi.app.services.impl;
+package com.ksptooi.app.services;
 
 import com.ksptooi.app.model.po.*
 import com.ksptooi.app.model.vo.*
 
 @Service
-public class JobsServiceImpl{
+public class JobsService{
 
     @Autowired
-    private JobsServiceImpl jobsMapper;
+    private JobsService jobsMapper;
 
     @Autowired
     private Snowflake idWorker;

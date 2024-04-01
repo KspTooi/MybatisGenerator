@@ -40,6 +40,8 @@ public class MtgGenOptions {
 
     private String pkgNameMapper;
 
+    private String pkgNameMapperXml;
+
     /**
      * 通用配置
      */
@@ -262,5 +264,13 @@ public class MtgGenOptions {
 
     public void setPkgNameVo(String pkgNameVo) {
         this.pkgNameVo = pkgNameVo;
+    }
+
+    public String getPkgNameMapperXml() {
+        return pkgNameMapperXml;
+    }
+
+    public void setPkgNameMapperXml(String pkgNameMapperXml) {
+        this.pkgNameMapperXml = pkgNameMapperXml;
     }
 }

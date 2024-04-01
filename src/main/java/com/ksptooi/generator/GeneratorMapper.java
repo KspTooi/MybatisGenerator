@@ -39,9 +39,15 @@ public class GeneratorMapper implements Generator{
 
         vc.put("fields",fields);
 
+        vc.put("tableName",opt.getTableName());
+        vc.put("fieldsByTable",fields);
 
         File out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameMapper()) + "\\"+opt.getMapperName() + ".java");
         Template t = VelocityWrapper.getTemplate("mapper.ftl");
+        VelocityWrapper.mergeAndOutput(t,vc,out);
+
+        out = new File(opt.getOutputPath().getParent(), "\\resources\\mapper" + "\\"+opt.getMapperName() + ".xml");
+        t = VelocityWrapper.getTemplate("mapper_xml.ftl");
         VelocityWrapper.mergeAndOutput(t,vc,out);
     }
 
