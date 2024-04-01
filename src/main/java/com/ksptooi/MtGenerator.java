@@ -1,6 +1,7 @@
 package com.ksptooi;
 
 import com.ksptooi.autoconfig.AutoConfigurator;
+import com.ksptooi.generator.Generator;
 import com.ksptooi.utils.DatabaseTools;
 import com.ksptooi.utils.VelocityWrapper;
 import com.ksptooi.model.config.MtgGenOptions;
@@ -28,6 +29,11 @@ public class MtGenerator {
     private Connection dsConn;
     private DatabaseTools dbt;
 
+
+    //生成器链
+    private List<Generator> generators = new ArrayList<>();
+
+    //OPT自动配置链
     private List<AutoConfigurator> autoConfigurators = new ArrayList<>();
 
 

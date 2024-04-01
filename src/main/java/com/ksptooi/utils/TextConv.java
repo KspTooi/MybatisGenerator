@@ -2,13 +2,13 @@ package com.ksptooi.utils;
 
 public class TextConv {
 
-    private static String toJavaGetterName(String fieldName){
+    public static String toJavaGetterName(String fieldName){
         char[] chars = fieldName.toCharArray();
         chars[0] = Character.toUpperCase(chars[0]);
         return new String(chars);
     }
 
-    private static String toJavaFiled(String fieldName){
+    public static String toJavaFiled(String fieldName){
         String[] words = fieldName.split("_");
         StringBuilder javaName = new StringBuilder(words[0].toLowerCase());
         for (int i = 1; i < words.length; i++) {
@@ -18,7 +18,7 @@ public class TextConv {
         return javaName.toString();
     }
 
-    private static String toJavaClass(String name){
+    public static String toJavaClass(String name){
         String[] parts = name.split("_");
         StringBuilder camelCaseName = new StringBuilder();
 
