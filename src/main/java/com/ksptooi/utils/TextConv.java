@@ -9,6 +9,13 @@ public class TextConv {
     }
 
     public static String toJavaFiled(String fieldName){
+
+        if(!fieldName.contains("_")){
+            char firstChar = fieldName.charAt(0);
+            firstChar = Character.toLowerCase(firstChar);
+            return firstChar + fieldName.substring(1);
+        }
+
         String[] words = fieldName.split("_");
         StringBuilder javaName = new StringBuilder(words[0].toLowerCase());
         for (int i = 1; i < words.length; i++) {
@@ -29,6 +36,10 @@ public class TextConv {
 
         return camelCaseName.toString();
     }
+
+
+
+
 
 
 }

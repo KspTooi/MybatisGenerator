@@ -24,6 +24,7 @@ public class GeneratorController implements Generator{
         Template t = VelocityWrapper.getTemplate("controller.ftl");
 
 
+
     }
 
     @Override
