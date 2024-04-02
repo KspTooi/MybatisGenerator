@@ -49,6 +49,8 @@ public class MtgGenOptions {
     private String primaryField;
     private File outputPath;
     private String projectName;
+    private String templatePath; //模板文件路径
+    private String templateNameSpace;  //模板文件的命名空间
 
     /**
      * 组件配置
@@ -57,6 +59,7 @@ public class MtgGenOptions {
     private boolean enableSlf4J = false;
     private boolean enableSwagger2 = false;
     private boolean enableMybatisPlus = false;
+
 
 
     public boolean isGenController() {
@@ -281,5 +284,21 @@ public class MtgGenOptions {
 
     public void setEnableMybatisPlus(boolean enableMybatisPlus) {
         this.enableMybatisPlus = enableMybatisPlus;
+    }
+
+    public String getTemplateNameSpace() {
+        return templateNameSpace;
+    }
+
+    public void setTemplateNameSpace(String templateNameSpace) {
+        this.templateNameSpace = templateNameSpace;
+    }
+
+    public String getTemplatePath() {
+        return templatePath;
+    }
+
+    public void setTemplatePath(String templatePath) {
+        this.templatePath = templatePath;
     }
 }

@@ -16,11 +16,11 @@ public class Application {
 
         MtgDataSource ds = ConfigFactory.datasource()
                 .driver("com.mysql.cj.jdbc.Driver")
-                .host("192.168.10.200:3306")
+                .host("127.0.0.1:3306")
                 .username("root")
                 .password("root")
                 .params("?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8")
-                .dbName("databrain")
+                .dbName("skinserver")
                 .templatePath(template.getAbsolutePath())
                 .build();
 
@@ -31,8 +31,8 @@ public class Application {
                 .genPo(true)
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
-                .tableName("ai_model_info")
-                .projectName("zsk-basic-service")
+                .tableName("oauth_clients")
+                //.projectName("zsk-basic-service")
                 .enableLombok(true)
                 .enableSwagger2(true)
                 .enableMybatisPlus(true)

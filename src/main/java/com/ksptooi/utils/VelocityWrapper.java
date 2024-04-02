@@ -20,6 +20,8 @@ public class VelocityWrapper {
 
     private static VelocityEngine ve = null;
 
+    private static String namespace = null;
+
     public static void init(String path){
         final Properties properties = new Properties();
         properties.setProperty("resource.loader", "file");
@@ -33,8 +35,17 @@ public class VelocityWrapper {
         ve = velocityEngine;
     }
 
+    public static void setNamespace(String ns){
+        namespace = ns;
+    }
+
     public static Template getTemplate(String name){
-        return ve.getTemplate(name);
+
+        if(namespace == null){
+            throw new RuntimeException("模板获取失败 没有配置有效的namespace");
+        }
+
+        return ve.getTemplate(namespace+File.separator+name);
     }
 
 

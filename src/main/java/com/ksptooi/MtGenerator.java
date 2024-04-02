@@ -29,22 +29,17 @@ public class MtGenerator {
     private Connection dsConn;
     private DatabaseTools dbt;
 
-    //生成器链
-    private List<Generator> generators = new ArrayList<>();
+    //GEN生成器链
+    private final List<Generator> generators = new ArrayList<>();
 
     //OPT自动配置链
-    private List<AutoConfigurator> autoConfigurators = new ArrayList<>();
+    private final List<AutoConfigurator> autoConfigurators = new ArrayList<>();
 
-
-
-
-    public void addAutoConfigurator(AutoConfigurator auto){
-        autoConfigurators.add(auto);
-    }
 
     public MtGenerator(MtgDataSource ds, MtgGenOptions config){
         this.dataSource = ds;
         this.config = config;
+        this.config.setTemplatePath(ds.getTemplatePath());
         initDataSource();
     }
 
@@ -57,6 +52,7 @@ public class MtGenerator {
             autoConfigurators.add(new PacketNameAutoConfigurator());
             autoConfigurators.add(new PrimaryKeyAutoConfigurator());
             autoConfigurators.add(new PathsAutoConfigurator());
+            autoConfigurators.add(new NameSpaceAutoConfiguration());
         }
     }
 

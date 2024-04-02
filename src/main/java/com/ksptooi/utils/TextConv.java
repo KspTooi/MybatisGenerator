@@ -1,5 +1,7 @@
 package com.ksptooi.utils;
 
+import java.io.File;
+
 public class TextConv {
 
     public static String toJavaGetterName(String fieldName){
@@ -38,7 +40,7 @@ public class TextConv {
     }
 
     public static String pkgToPath(String pkg){
-        return pkg.replace(".","\\");
+        return pkg.replace(".", File.separator);
     }
 
 
