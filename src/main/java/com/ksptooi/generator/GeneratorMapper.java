@@ -20,43 +20,15 @@ public class GeneratorMapper implements Generator{
     @Override
     public void generate(MtgGenOptions opt, List<TableField> fields) {
 
-        final VelocityContext vc = new VelocityContext();
+        Template tMap = VelocityWrapper.getTemplate("mapper.ftl");
+        Template tXml = VelocityWrapper.getTemplate("mapper_xml.ftl");
+        VelocityContext vc = VelocityWrapper.injectContext(opt, fields);
 
-        vc.put("voName",opt.getVoName());
-        vc.put("fieldVoName", TextConv.toJavaFiled(opt.getVoName()));
-        vc.put("pkgNameVo",opt.getPkgNameVo());
+        File oMap = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameMapper()) + "\\"+opt.getMapperName() + ".java");
+        File oXml = new File(opt.getOutputXmlPath().getAbsolutePath(),opt.getMapperName() + ".xml");
 
-        vc.put("poName",opt.getPoName());
-        vc.put("fieldPoName",TextConv.toJavaFiled(opt.getPoName()));
-        vc.put("pkgNamePo",opt.getPkgNamePo());
-
-        vc.put("serviceImplName",opt.getServiceImplName());
-        vc.put("pkgNameServiceImpl",opt.getPkgNameServiceImpl());
-
-        vc.put("mapperName",opt.getMapperName());
-        vc.put("fieldMapperName",TextConv.toJavaFiled(opt.getMapperName()));
-        vc.put("pkgNameMapper",opt.getPkgNameMapper());
-
-        vc.put("fields",fields);
-
-        vc.put("tableName",opt.getTableName());
-        vc.put("fieldsByTable",fields);
-
-        String tName = "mapper.ftl";
-        String tXmlName = "mapper_xml.ftl";
-
-        if(opt.isEnableMybatisPlus()){
-            tName = "mapper.ftl";
-            tXmlName = "mapper_xml.ftl";
-        }
-
-        File out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameMapper()) + "\\"+opt.getMapperName() + ".java");
-        Template t = VelocityWrapper.getTemplate(tName);
-        VelocityWrapper.mergeAndOutput(t,vc,out);
-
-        out = new File(opt.getOutputXmlPath().getAbsolutePath(),opt.getMapperName() + ".xml");
-        t = VelocityWrapper.getTemplate(tXmlName);
-        VelocityWrapper.mergeAndOutput(t,vc,out);
+        VelocityWrapper.mergeAndOutput(tMap,vc,oMap);
+        VelocityWrapper.mergeAndOutput(tXml,vc,oXml);
     }
 
     @Override

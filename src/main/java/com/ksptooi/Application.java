@@ -25,18 +25,17 @@ public class Application {
                 .build();
 
         MtgGenOptions opt = ConfigFactory.config()
-                .genController(false)
-                .genService(false)
+                .genController(true)
+                .genService(true)
                 .withImpl(false)
-                .genPo(false)
+                .genPo(true)
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
                 .tableName("oauth_clients")
                 //.projectName("zsk-basic-service")
-                .enableLombok(true)
-                .enableSwagger2(true)
-                .enableMybatisPlus(true)
-                .enableSlf4J(true)
+                .enableLombok(false)
+                .enableSwagger2(false)
+                .enableMybatisPlus(false)
                 .silence(true)
                 .build();
 

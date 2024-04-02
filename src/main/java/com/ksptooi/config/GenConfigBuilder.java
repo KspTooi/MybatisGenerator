@@ -113,11 +113,6 @@ public class GenConfigBuilder {
         return this;
     }
 
-    public GenConfigBuilder enableSlf4J(boolean b){
-        target.setEnableSlf4J(b);
-        return this;
-    }
-
     public GenConfigBuilder enableMybatisPlus(boolean b){
         target.setEnableMybatisPlus(b);
         return this;

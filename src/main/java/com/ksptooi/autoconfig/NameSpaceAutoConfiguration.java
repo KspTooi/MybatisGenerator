@@ -21,15 +21,16 @@ public class NameSpaceAutoConfiguration implements AutoConfigurator{
         if(StringUtils.isBlank(opt.getTemplateNameSpace())){
             opt.setTemplateNameSpace(ns);
             VelocityWrapper.setNamespace(ns);
+
+            if(opt.isEnableMybatisPlus()){
+                ns = "ns_mplus";
+                opt.setTemplateNameSpace(ns);
+                VelocityWrapper.setNamespace(ns);
+            }
+
+            log.info("[自动配置]模板命名空间为:{}",ns);
         }
 
-        if(opt.isEnableMybatisPlus()){
-            ns = "ns_mplus";
-            opt.setTemplateNameSpace(ns);
-            VelocityWrapper.setNamespace(ns);
-        }
-
-        log.info("[自动配置]模板命名空间为:{}",ns);
     }
 
     @Override

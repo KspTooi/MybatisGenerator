@@ -1,6 +1,7 @@
 package com.ksptooi.utils;
 
 import com.ksptooi.model.config.MtgGenOptions;
+import com.ksptooi.model.po.TableField;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Properties;
 
 public class VelocityWrapper {
@@ -50,6 +52,68 @@ public class VelocityWrapper {
         }
 
         return ve.getTemplate(namespace+File.separator+name);
+    }
+
+
+    /**
+     * 注入OPT到VC中
+     * @return
+     */
+    public static VelocityContext injectContext(MtgGenOptions opt, List<TableField> fields){
+
+        VelocityContext v = new VelocityContext();
+
+        v.put("genController",opt.isGenController());
+        v.put("genService",opt.isGenService());
+        v.put("withImpl",opt.isWithImpl());
+        v.put("genPo",opt.isGenPo());
+        v.put("genVo",opt.isGenVo());
+        v.put("genMapper",opt.isGenMapper());
+
+        //大写的类名 eg:: GenericController
+        v.put("controllerName", opt.getControllerName());
+        v.put("serviceName", opt.getServiceName());
+        v.put("serviceImplName", opt.getServiceImplName());
+        v.put("voName", opt.getVoName());
+        v.put("poName", opt.getPoName());
+        v.put("mapperName", opt.getMapperName());
+
+        //顶级包名 eg:: com.ksptooi.app
+        v.put("packetName", opt.getPacketName());
+
+        //全包名 eg::com.ksptooi.app.generic
+        v.put("pkgNameController", opt.getPkgNameController());
+        v.put("pkgNameService", opt.getPkgNameService());
+        v.put("pkgNameServiceImpl", opt.getPkgNameServiceImpl());
+        v.put("pkgNameVo", opt.getPkgNameVo());
+        v.put("pkgNamePo", opt.getPkgNamePo());
+        v.put("pkgNameMapper", opt.getPkgNameMapper());
+        v.put("pkgNameMapperXml", opt.getPkgNameMapperXml());
+
+        //字段类名 eg:: genericController
+        v.put("fieldControllerName", TextConv.toJavaFiled(opt.getControllerName()));
+        v.put("fieldServiceName", TextConv.toJavaFiled(opt.getServiceName()));
+        v.put("fieldServiceImplName", TextConv.toJavaFiled(opt.getServiceImplName()));
+        v.put("fieldVoName", TextConv.toJavaFiled(opt.getVoName()));
+        v.put("fieldPoName", TextConv.toJavaFiled(opt.getPoName()));
+        v.put("fieldMapperName", TextConv.toJavaFiled(opt.getMapperName()));
+
+
+        //表名 eg:: generic_table
+        v.put("tableName", opt.getTableName());
+        //大写的表名 eg:: GenericTable
+        v.put("classTableName", TextConv.toJavaClass(opt.getTableName()));
+
+        v.put("primaryField", opt.getPrimaryField());
+
+        v.put("enableLombok", opt.isEnableLombok());
+        v.put("enableSlf4J", opt.isEnableSlf4J());
+        v.put("enableSwagger2", opt.isEnableSwagger2());
+        v.put("enableMybatisPlus", opt.isEnableMybatisPlus());
+
+        //数据库的全部列
+        v.put("fields",fields);
+        return v;
     }
 
 
