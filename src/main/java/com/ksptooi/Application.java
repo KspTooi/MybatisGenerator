@@ -32,7 +32,7 @@ public class Application {
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
                 .tableName("oauth_clients")
-                //.projectName("zsk-basic-service")
+                .projectName("hospital-plugin-service")
                 .enableLombok(false)
                 .enableSwagger2(false)
                 .enableMybatisPlus(false)

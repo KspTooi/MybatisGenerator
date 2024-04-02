@@ -153,6 +153,11 @@ public class GenConfigBuilder {
         return this;
     }
 
+    public GenConfigBuilder put(String k,Object v){
+        target.getOpt().put(k,v);
+        return this;
+    }
+
     public MtgGenOptions build(){
         return target;
     }

@@ -1,4 +1,4 @@
-package ${packetNamePo};
+package ${pkgNamePo};
 
 import java.util.Date;
 #if(${enableLombok})

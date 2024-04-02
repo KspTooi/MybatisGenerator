@@ -1,8 +1,13 @@
 package com.ksptooi.model.config;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class MtgGenOptions {
+
+    private final Map<String, Object> opt = new HashMap<>();
 
     /**
      * 生成器配置
@@ -322,5 +327,9 @@ public class MtgGenOptions {
 
     public void setSilence(boolean silence) {
         this.silence = silence;
+    }
+
+    public Map<String, Object> getOpt() {
+        return opt;
     }
 }

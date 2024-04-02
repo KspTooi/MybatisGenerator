@@ -15,6 +15,7 @@ import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class VelocityWrapper {
@@ -113,6 +114,13 @@ public class VelocityWrapper {
 
         //数据库的全部列
         v.put("fields",fields);
+
+
+        //自定义参数
+        for(Map.Entry<String,Object> entry : opt.getOpt().entrySet()){
+            v.put(entry.getKey(),entry.getValue());
+        }
+
         return v;
     }
 

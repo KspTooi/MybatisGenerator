@@ -13,20 +13,28 @@ import ${pkgNamePo}.${poName};
 
 @RestController
 @RequestMapping("/${fieldControllerName}")
+#if(${enableSwagger2})
 @Api(tags = "${classTableName}")
+#end
+#if(${enableLombok})
 @Slf4j
+#end
 public class ${controllerName} {
 
     @Autowired
     private ${serviceName} ${fieldServiceName};
 
+    #if(${enableSwagger2})
     @ApiOperation("列表查询")
+    #end
     @PostMapping("/getMany")
     public TableDataInfo getMany(@RequestBody ${poName} ${fieldVoName}) {
         return ${fieldServiceName}.getMany(${fieldVoName});
     }
 
+    #if(${enableSwagger2})
     @ApiOperation("保存或更新")
+    #end
     @PostMapping("/saveOrUpdate")
     public R<String> saveOrUpdate(@RequestBody ${voName}InVo ${fieldVoName}) {
         return R.ok(${fieldServiceName}.saveOrUpdate(${fieldVoName}));
@@ -34,7 +42,9 @@ public class ${controllerName} {
 
     #foreach ($field in $fields)
     #if(${field.primary})
+    #if(${enableSwagger2})
     @ApiOperation("根据主键查询单条记录")
+    #end
     @PostMapping("/getBy${field.javaGetterName}")
     public R<${poName}> getBy${field.javaGetterName}(@RequestBody ${field.javaType} ${field.javaFieldName}) {
         if (${field.javaFieldName} == null) {
@@ -43,7 +53,9 @@ public class ${controllerName} {
         return R.ok(${fieldServiceName}.getBy${field.javaGetterName}(${field.javaFieldName}));
     }
 
+    #if(${enableSwagger2})
     @ApiOperation("根据主键删除记录")
+    #end
     @PostMapping("/removeBy${field.javaGetterName}")
     public R removeBy${field.javaGetterName}(@RequestBody ${field.javaType} ${field.javaFieldName}) {
         if (${field.javaFieldName} == null) {

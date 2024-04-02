@@ -41,13 +41,15 @@ public class DatabaseTools {
         typeMapper.put("LONGVARBINARY", "Byte[]");
         typeMapper.put("DATE", "Date");
         typeMapper.put("TIME", "Date");
-        typeMapper.put("TIMESTAMP", "java.sql.Timestamp");
+        //typeMapper.put("TIMESTAMP", "java.sql.Timestamp");
+        typeMapper.put("TIMESTAMP", "Date");
         typeMapper.put("BIGINT UNSIGNED", "Long");
         typeMapper.put("INT UNSIGNED", "Long");
         typeMapper.put("TINYINT UNSIGNED", "Integer");
         typeMapper.put("LONGTEXT", "String");
         typeMapper.put("DATETIME", "Date");
         typeMapper.put("INT", "Integer");
+        typeMapper.put("TEXT", "String");
     }
 
     public List<TableField> getFieldsByTable(String tableName){

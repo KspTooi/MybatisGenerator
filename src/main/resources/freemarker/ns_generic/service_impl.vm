@@ -2,12 +2,10 @@ package ${pkgNameServiceImpl};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.downgoon.snowflake.Snowflake;
-import com.ruoyi.common.core.web.page.TableDataInfo;
-import com.github.pagehelper.PageHelper;
 import java.util.List;
-import com.ruoyi.common.core.web.controller.BaseController;
+import java.util.ArrayList;
 import ${pkgNameVo}.${voName}InVo;
+import ${pkgNameVo}.${voName}OutVo;
 import ${pkgNamePo}.${poName};
 import ${pkgNameMapper}.${mapperName};
 
@@ -17,14 +15,24 @@ public class ${serviceImplName}{
     @Autowired
     private ${mapperName} ${fieldMapperName};
 
-    @Autowired
-    private Snowflake idWorker;
+    public List<${voName}OutVo> getMany(${voName}InVo in){
+        final ${poName} query = new ${poName}();
+        #foreach ($field in $fields)
+        query.set${field.javaGetterName}(in.get${field.javaGetterName}());
+        #end
 
-    public TableDataInfo getMany(${poName} vo){
-        //PageHelper.startPage(vo.getPageNum(),vo.getPageSize());
-        //PageHelper.orderBy("create_time desc");
-        List<${poName}> vos = ${fieldMapperName}.getMany(vo);
-        return BaseController.getDataTable(vos);
+        List<${poName}> many = ${fieldMapperName}.getMany(query);
+
+        List<${voName}OutVo> ret = new ArrayList<>();
+
+        for(OauthClientsPo item : many){
+            OauthClientsOutVo out = new OauthClientsOutVo();
+            #foreach ($field in $fields)
+            out.set${field.javaGetterName}(item.get${field.javaGetterName}());
+            #end
+            ret.add(out);
+        }
+        return ret;
     }
 
     public String saveOrUpdate(${voName}InVo in) {

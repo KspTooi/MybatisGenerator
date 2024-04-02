@@ -32,10 +32,10 @@ public class GeneratorEntities implements Generator{
         if(opt.isGenVo()){
 
             t = VelocityWrapper.getTemplate("vo.vm");
-
+            vc.put("voName", opt.getVoName()+"InVo");
             out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameVo()) + "\\"+opt.getVoName() + "InVo.java");
             VelocityWrapper.mergeAndOutput(t,vc,out);
-
+            vc.put("voName", opt.getVoName()+"OutVo");
             out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameVo()) + "\\"+opt.getVoName() + "OutVo.java");
             VelocityWrapper.mergeAndOutput(t,vc,out);
 

@@ -4,28 +4,28 @@
 <mapper namespace="${pkgNameMapper}.${mapperName}">
 
 	<resultMap id="poMap" type="${pkgNamePo}.${poName}">
-		#foreach ($field in $fieldsByTable)
+		#foreach ($field in $fields)
 		<result column="${field.name}" property="${field.javaFieldName}"/>
 		#end
 	</resultMap>
 
 	<!-- 表所有参数-->
 	<sql id="tableCol">
-		#foreach ($field in $fieldsByTable)
+		#foreach ($field in $fields)
 		`${field.name}`#if($foreach.hasNext),#end
 		#end
 	</sql>
 
 	<!-- 实体所有参数-->
 	<sql id="poVal">
-		#foreach ($field in $fieldsByTable)
+		#foreach ($field in $fields)
 		#{val.${field.javaFieldName}}#if($foreach.hasNext),#end
 		#end
 	</sql>
 
 	<sql id="where">
 		<where>
-			#foreach ($field in $fieldsByTable)
+			#foreach ($field in $fields)
 			<if test="val.${field.javaFieldName}!=null">and ${field.name} = #{val.${field.javaFieldName}}}</if>
 			#end
 		</where>
