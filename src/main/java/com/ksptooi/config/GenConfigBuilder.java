@@ -158,6 +158,11 @@ public class GenConfigBuilder {
         return this;
     }
 
+    public GenConfigBuilder namespace(String s){
+        target.setTemplateNameSpace(s);
+        return this;
+    }
+
     public MtgGenOptions build(){
         return target;
     }

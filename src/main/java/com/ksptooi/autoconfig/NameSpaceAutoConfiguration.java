@@ -31,6 +31,10 @@ public class NameSpaceAutoConfiguration implements AutoConfigurator{
             log.info("[自动配置]模板命名空间为:{}",ns);
         }
 
+        ns = opt.getTemplateNameSpace();
+        VelocityWrapper.setNamespace(ns);
+        log.info("[指定配置]模板命名空间为:{}",ns);
+
     }
 
     @Override

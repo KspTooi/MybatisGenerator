@@ -33,10 +33,12 @@ public class Application {
                 .packetName("com.ksptooi.app")
                 .tableName("oauth_clients")
                 .projectName("hospital-plugin-service")
-                .enableLombok(false)
-                .enableSwagger2(false)
-                .enableMybatisPlus(false)
+                .enableLombok(true)
+                .enableSwagger2(true)
+                .enableMybatisPlus(true)
                 .silence(true)
+                .namespace("ns_private")
+                .put("private_ns_test","HelloWorld")
                 .build();
 
         MtGenerator mtg = new MtGenerator(ds,opt);
