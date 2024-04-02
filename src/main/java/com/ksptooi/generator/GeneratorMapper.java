@@ -54,7 +54,7 @@ public class GeneratorMapper implements Generator{
         Template t = VelocityWrapper.getTemplate(tName);
         VelocityWrapper.mergeAndOutput(t,vc,out);
 
-        out = new File(opt.getOutputPath().getParent(), "\\resources\\mapper" + "\\"+opt.getMapperName() + ".xml");
+        out = new File(opt.getOutputXmlPath().getAbsolutePath(),opt.getMapperName() + ".xml");
         t = VelocityWrapper.getTemplate(tXmlName);
         VelocityWrapper.mergeAndOutput(t,vc,out);
     }

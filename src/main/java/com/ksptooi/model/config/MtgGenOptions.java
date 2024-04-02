@@ -47,7 +47,6 @@ public class MtgGenOptions {
      */
     private String tableName;
     private String primaryField;
-    private File outputPath;
     private String projectName;
     private String templatePath; //模板文件路径
     private String templateNameSpace;  //模板文件的命名空间
@@ -60,7 +59,21 @@ public class MtgGenOptions {
     private boolean enableSwagger2 = false;
     private boolean enableMybatisPlus = false;
 
+    /**
+     * 输出配置
+     * @return
+     */
+    private File outputPath;
+    private File outputXmlPath;
 
+
+    public File getOutputXmlPath() {
+        return outputXmlPath;
+    }
+
+    public void setOutputXmlPath(File outputXmlPath) {
+        this.outputXmlPath = outputXmlPath;
+    }
 
     public boolean isGenController() {
         return genController;

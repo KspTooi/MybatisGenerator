@@ -2,6 +2,8 @@ package com.ksptooi.config;
 
 import com.ksptooi.model.config.MtgGenOptions;
 
+import java.io.File;
+
 public class GenConfigBuilder {
 
     private MtgGenOptions target = null;
@@ -138,6 +140,16 @@ public class GenConfigBuilder {
 
     public GenConfigBuilder voName(String in){
         target.setVoName(in);
+        return this;
+    }
+
+    public GenConfigBuilder outputTo(String f){
+        target.setOutputPath(new File(f));
+        return this;
+    }
+
+    public GenConfigBuilder outputXmlTo(String f){
+        target.setOutputXmlPath(new File(f));
         return this;
     }
 

@@ -2,6 +2,7 @@ package com.ksptooi.autoconfig;
 
 import com.ksptooi.model.config.MtgGenOptions;
 import com.ksptooi.model.po.TableField;
+import com.ksptooi.utils.TextConv;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,10 @@ public class PathsAutoConfigurator implements AutoConfigurator{
     private final Logger log = LoggerFactory.getLogger(PathsAutoConfigurator.class);
     @Override
     public void doAutomaticConfiguration(Connection conn, MtgGenOptions opt, List<TableField> fields) {
+
+        if(opt.getOutputPath() != null){
+            opt.setOutputPath(new File(TextConv.pkgToPath(opt.getOutputPath().getAbsolutePath())));
+        }
 
         if(opt.getOutputPath() == null){
 
@@ -38,6 +43,7 @@ public class PathsAutoConfigurator implements AutoConfigurator{
                 File javaPath = new File(mavenProject,"\\src\\main\\java");
                 opt.setOutputPath(javaPath);
                 log.info("[自动配置]已识别到Maven项目 配置输出路径为:{}",javaPath.getAbsolutePath());
+                autoConfigXmlPath(opt,true);
                 return;
             }
 
@@ -48,14 +54,38 @@ public class PathsAutoConfigurator implements AutoConfigurator{
                 path = path + "\\src\\main\\java";
                 log.info("[自动配置]已识别到Maven项目 配置输出路径为:{}",path);
                 opt.setOutputPath(new File(path));
+                autoConfigXmlPath(opt,true);
                 return;
             }
 
             log.info("[自动配置]输出路径为:{}",path);
             opt.setOutputPath(new File(path));
+            autoConfigXmlPath(opt,false);
         }
 
+        autoConfigXmlPath(opt,false);
     }
+
+    private void autoConfigXmlPath(MtgGenOptions opt,boolean isMaven){
+
+        File xmlOut = opt.getOutputPath();
+
+        if(opt.getOutputXmlPath() == null){
+
+            if(isMaven){
+                xmlOut = new File(xmlOut.getParentFile(), TextConv.pkgToPath(".resources.mapper."));
+            }
+
+        }
+
+        if(opt.getOutputXmlPath() != null){
+            xmlOut = new File(xmlOut,TextConv.pkgToPath(opt.getOutputXmlPath().getPath()));
+        }
+
+        log.info("[自动配置]XML输出为:{}",xmlOut.getAbsolutePath());
+        opt.setOutputXmlPath(xmlOut);
+    }
+
 
     /**
      * 递归向上查找父级路径下是否存在Maven项目
