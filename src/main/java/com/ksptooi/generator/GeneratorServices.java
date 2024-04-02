@@ -39,19 +39,13 @@ public class GeneratorServices implements Generator{
         vc.put("fields",fields);
 
 
-        vc.put("","");
-        vc.put("","");
-        vc.put("","");
-        vc.put("","");
-        vc.put("","");
-        vc.put("","");
-        vc.put("","");
-        vc.put("","");
-        vc.put("","");
-
-
         File out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameServiceImpl()) + "\\"+opt.getServiceImplName() + ".java");
         Template t = VelocityWrapper.getTemplate("service_impl.ftl");
+
+        if(opt.isEnableMybatisPlus()){
+            t = VelocityWrapper.getTemplate("service_impl_plus.ftl");
+        }
+
         VelocityWrapper.mergeAndOutput(t,vc,out);
     }
 

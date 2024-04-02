@@ -131,6 +131,10 @@ public class MtGenerator {
                 item.doAutomaticConfiguration(dsConn,config,fields);
             }
 
+            if(config.isWithImpl()){
+                throw new RuntimeException("当前不支持withImpl参数");
+            }
+
             for(Generator item : generators){
                 item.generate(config,fields);
             }

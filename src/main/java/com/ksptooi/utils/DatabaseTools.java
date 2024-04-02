@@ -29,7 +29,7 @@ public class DatabaseTools {
         typeMapper.put("LONGVARCHAR", "String");
         typeMapper.put("BIT", "Boolean");
         typeMapper.put("NUMERIC", "java.math.BigDecimal");
-        typeMapper.put("TINYINT", "Byte");
+        typeMapper.put("TINYINT", "Integer");
         typeMapper.put("SMALLINT", "Short");
         typeMapper.put("INTEGER", "Integer");
         typeMapper.put("BIGINT", "Long");
@@ -46,6 +46,8 @@ public class DatabaseTools {
         typeMapper.put("INT UNSIGNED", "Long");
         typeMapper.put("TINYINT UNSIGNED", "Integer");
         typeMapper.put("LONGTEXT", "String");
+        typeMapper.put("DATETIME", "Date");
+        typeMapper.put("INT", "Integer");
     }
 
     public List<TableField> getFieldsByTable(String tableName){

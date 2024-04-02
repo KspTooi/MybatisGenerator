@@ -21,20 +21,24 @@ public class PathsAutoConfigurator implements AutoConfigurator{
 
         if(opt.getOutputPath() == null){
 
+            String projectName = opt.getProjectName();
+
             //已配置项目名称
-            if(StringUtils.isNotBlank(opt.getProjectName())){
+            if(StringUtils.isNotBlank(projectName)){
 
                 String path = System.getProperty("user.dir");
-                Path parent = Paths.get(path).getParent();
 
-                if(isMavenProject(parent.toAbsolutePath().toString() + "\\" + opt.getProjectName())){
-                    path = path + "\\" + opt.getProjectName();
-                    opt.setOutputPath(new File(path));
-                    log.info("[自动配置]已识别到Maven项目 配置输出路径为:{}",path);
-                    return;
+                File mavenProject = findMavenProject(new File(path), projectName);
+
+                if(mavenProject == null){
+                    log.error("自动配置失败,在所有路径中都无法查找到项目:{}", projectName);
+                    throw new RuntimeException("自动配置失败,在所有路径中都无法查找到项目:"+projectName);
                 }
 
-                log.warn("自动配置失败 当前配置的项目不存在:{}",opt.getProjectName());
+                File javaPath = new File(mavenProject,"\\src\\main\\java");
+                opt.setOutputPath(javaPath);
+                log.info("[自动配置]已识别到Maven项目 配置输出路径为:{}",javaPath.getAbsolutePath());
+                return;
             }
 
             //未配置项目名
@@ -51,6 +55,26 @@ public class PathsAutoConfigurator implements AutoConfigurator{
             opt.setOutputPath(new File(path));
         }
 
+    }
+
+    /**
+     * 递归向上查找父级路径下是否存在Maven项目
+     */
+    public File findMavenProject(File path,String projectName){
+
+        if(path == null){
+            return null;
+        }
+
+        //当前路径是否有项目
+        File f = new File(path,projectName);
+
+        if(f.exists() && isMavenProject(f.getAbsolutePath())){
+            return f;
+        }
+
+        //递归查找上级
+        return findMavenProject(path.getParentFile(),projectName);
     }
 
     public boolean isMavenProject(String path){

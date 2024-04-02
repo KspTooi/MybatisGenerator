@@ -42,12 +42,20 @@ public class GeneratorMapper implements Generator{
         vc.put("tableName",opt.getTableName());
         vc.put("fieldsByTable",fields);
 
+        String tName = "mapper.ftl";
+        String tXmlName = "mapper_xml.ftl";
+
+        if(opt.isEnableMybatisPlus()){
+            tName = "mapper_plus.ftl";
+            tXmlName = "mapper_plus_xml.ftl";
+        }
+
         File out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameMapper()) + "\\"+opt.getMapperName() + ".java");
-        Template t = VelocityWrapper.getTemplate("mapper.ftl");
+        Template t = VelocityWrapper.getTemplate(tName);
         VelocityWrapper.mergeAndOutput(t,vc,out);
 
         out = new File(opt.getOutputPath().getParent(), "\\resources\\mapper" + "\\"+opt.getMapperName() + ".xml");
-        t = VelocityWrapper.getTemplate("mapper_xml.ftl");
+        t = VelocityWrapper.getTemplate(tXmlName);
         VelocityWrapper.mergeAndOutput(t,vc,out);
     }
 

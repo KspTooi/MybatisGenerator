@@ -116,6 +116,11 @@ public class GenConfigBuilder {
         return this;
     }
 
+    public GenConfigBuilder enableMybatisPlus(boolean b){
+        target.setEnableMybatisPlus(b);
+        return this;
+    }
+
     public GenConfigBuilder enableSwagger2(boolean b){
         target.setEnableSwagger2(b);
         return this;

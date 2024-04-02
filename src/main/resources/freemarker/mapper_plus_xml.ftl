@@ -31,33 +31,6 @@
 		</where>
 	</sql>
 
-	<insert id="insert" parameterType="${pkgNamePo}.${poName}">
-		<if test="val!=null">
-			INSERT INTO ${tableName}(<include refid="tableCol" />)
-			VALUES(<include refid="poVal"/>)
-		</if>
-	</insert>
-
-	<insert id="insertOrUpdate" parameterType="${pkgNamePo}.${poName}">
-		<if test="val!=null">
-			INSERT INTO ${tableName}(<include refid="tableCol" />)
-			VALUES(<include refid="poVal"/>)
-			ON DUPLICATE KEY UPDATE
-			#foreach ($field in $fieldsByTable)
-			${field.name} = values(${field.name})#if($foreach.hasNext),#end
-			#end
-		</if>
-	</insert>
-
-	<insert id="insertList" parameterType="list">
-		<if test="val!=null">
-			INSERT INTO ${tableName}(<include refid="tableCol" />)
-			VALUES
-			<foreach collection="data" item="val" index="index" separator=",">
-				(<include refid="poVal"/>)
-			</foreach>
-		</if>
-	</insert>
 
 	#foreach ($field in $fields)
 	#if(${field.primary})
@@ -80,15 +53,5 @@
 	</update>
 	#end
 	#end
-
-	<select id="getOne" parameterType="${pkgNamePo}.${poName}" resultMap="poMap" >
-		SELECT <include refid="tableCol"/> FROM ${tableName}
-		<include refid="where"/> LIMIT 1
-	</select>
-
-	<select id="getMany" parameterType="${pkgNamePo}.${poName}" resultMap="poMap">
-		SELECT <include refid="tableCol"/> FROM ${tableName}
-		<include refid="where"/>
-	</select>
 
 </mapper>

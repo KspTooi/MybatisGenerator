@@ -60,7 +60,7 @@ public class VelocityWrapper {
         // create and write new file with contents from writer
         try (FileWriter fileWriter = new FileWriter(outputPath.toFile())) {
             fileWriter.write(writer.toString());
-            log.info("写出文件成功:{}",output.getAbsolutePath());
+            log.info("写出至:{}",output.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

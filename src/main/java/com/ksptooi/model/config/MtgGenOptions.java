@@ -56,6 +56,7 @@ public class MtgGenOptions {
     private boolean enableLombok = false;
     private boolean enableSlf4J = false;
     private boolean enableSwagger2 = false;
+    private boolean enableMybatisPlus = false;
 
 
     public boolean isGenController() {
@@ -272,5 +273,13 @@ public class MtgGenOptions {
 
     public void setPkgNameMapperXml(String pkgNameMapperXml) {
         this.pkgNameMapperXml = pkgNameMapperXml;
+    }
+
+    public boolean isEnableMybatisPlus() {
+        return enableMybatisPlus;
+    }
+
+    public void setEnableMybatisPlus(boolean enableMybatisPlus) {
+        this.enableMybatisPlus = enableMybatisPlus;
     }
 }

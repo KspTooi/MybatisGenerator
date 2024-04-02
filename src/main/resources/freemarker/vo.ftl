@@ -8,18 +8,10 @@ import lombok.Setter;
 #if(${enableSwagger2})
 import io.swagger.annotations.ApiModelProperty;
 #end
-#if(${enableMybatisPlus})
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-#end
 
 #if(${enableLombok})
 @Getter
 @Setter
-#end
-#if(${enableMybatisPlus})
-@TableName("${tableName}")
 #end
 public class ${poName}{
 
@@ -31,11 +23,6 @@ public class ${poName}{
     #end
     #if(!${enableSwagger2})
     //${field.comment}
-    #end
-    #end
-    #if(${field.primary})
-    #if(${enableMybatisPlus})
-    @TableId(type = IdType.ASSIGN_ID)
     #end
     #end
     private ${field.javaType} ${field.javaFieldName};

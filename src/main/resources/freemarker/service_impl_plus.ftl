@@ -10,6 +10,7 @@ import com.ruoyi.common.core.web.controller.BaseController;
 import ${pkgNameVo}.${voName}InVo;
 import ${pkgNamePo}.${poName};
 import ${pkgNameMapper}.${mapperName};
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 @Service
 public class ${serviceImplName}{
@@ -23,7 +24,7 @@ public class ${serviceImplName}{
     public TableDataInfo getMany(${poName} vo){
         //PageHelper.startPage(vo.getPageNum(),vo.getPageSize());
         //PageHelper.orderBy("create_time desc");
-        List<${poName}> vos = ${fieldMapperName}.getMany(vo);
+        List<${poName}> vos = ${fieldMapperName}.selectList(new QueryWrapper<>(vo));
         return BaseController.getDataTable(vos);
     }
 
@@ -35,7 +36,7 @@ public class ${serviceImplName}{
         po.set${field.javaGetterName}(in.get${field.javaGetterName}());
         #end
 
-        return ${fieldMapperName}.insertOrUpdate(po)+"";
+        return ${fieldMapperName}.insert(po)+"";
     }
 
     #foreach ($field in $fields)
