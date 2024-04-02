@@ -143,7 +143,7 @@ public class MtGenerator {
             }
 
             if(config.isSilence()){
-                log.info("操作已完成 运行{}of{}个生成器",c,generators.size());
+                log.info("已运行 {} of {} 个生成器",c,generators.size());
             }
 
 

@@ -37,7 +37,7 @@ public class Application {
                 .enableSwagger2(true)
                 .enableMybatisPlus(true)
                 .enableSlf4J(true)
-                .silence(false)
+                .silence(true)
                 .build();
 
         MtGenerator mtg = new MtGenerator(ds,opt);

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ksptooi.app.mapper.OauthClientsMapper">
+
+	<resultMap id="poMap" type="com.ksptooi.app.model.po.OauthClientsPo">
+		<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="name" property="name"/>
+		<result column="secret" property="secret"/>
+		<result column="provider" property="provider"/>
+		<result column="redirect" property="redirect"/>
+		<result column="personal_access_client" property="personalAccessClient"/>
+		<result column="password_client" property="passwordClient"/>
+		<result column="revoked" property="revoked"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="updated_at" property="updatedAt"/>
+	</resultMap>
+
+	<!-- 表所有参数-->
+	<sql id="tableCol">
+		`id`,
+		`user_id`,
+		`name`,
+		`secret`,
+		`provider`,
+		`redirect`,
+		`personal_access_client`,
+		`password_client`,
+		`revoked`,
+		`created_at`,
+		`updated_at`
+	</sql>
+
+	<!-- 实体所有参数-->
+	<sql id="poVal">
+		#{val.id},
+		#{val.userId},
+		#{val.name},
+		#{val.secret},
+		#{val.provider},
+		#{val.redirect},
+		#{val.personalAccessClient},
+		#{val.passwordClient},
+		#{val.revoked},
+		#{val.createdAt},
+		#{val.updatedAt}
+	</sql>
+
+	<sql id="where">
+		<where>
+			<if test="val.id!=null">and id = #{val.id}}</if>
+			<if test="val.userId!=null">and user_id = #{val.userId}}</if>
+			<if test="val.name!=null">and name = #{val.name}}</if>
+			<if test="val.secret!=null">and secret = #{val.secret}}</if>
+			<if test="val.provider!=null">and provider = #{val.provider}}</if>
+			<if test="val.redirect!=null">and redirect = #{val.redirect}}</if>
+			<if test="val.personalAccessClient!=null">and personal_access_client = #{val.personalAccessClient}}</if>
+			<if test="val.passwordClient!=null">and password_client = #{val.passwordClient}}</if>
+			<if test="val.revoked!=null">and revoked = #{val.revoked}}</if>
+			<if test="val.createdAt!=null">and created_at = #{val.createdAt}}</if>
+			<if test="val.updatedAt!=null">and updated_at = #{val.updatedAt}}</if>
+		</where>
+	</sql>
+
+
+	<delete id="removeById">
+		DELETE FROM oauth_clients WHERE id = #{val}
+	</delete>
+
+	<select id="getById" resultMap="poMap">
+		SELECT <include refid="tableCol"/> FROM oauth_clients WHERE id = #{val} limit 1
+	</select>
+
+	<update id="updateById">
+		<if test="val != null and val.id !=null">
+			UPDATE oauth_clients t SET
+			t.id = #{val.id}
+			t.user_id = #{val.userId}
+			t.name = #{val.name}
+			t.secret = #{val.secret}
+			t.provider = #{val.provider}
+			t.redirect = #{val.redirect}
+			t.personal_access_client = #{val.personalAccessClient}
+			t.password_client = #{val.passwordClient}
+			t.revoked = #{val.revoked}
+			t.created_at = #{val.createdAt}
+			t.updated_at = #{val.updatedAt}
+			WHERE id = #{val.id}
+		</if>
+	</update>
+
+</mapper>
