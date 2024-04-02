@@ -19,7 +19,7 @@ public class GenConfigBuilder {
     }
 
     public GenConfigBuilder genService(boolean b){
-        target.setGenPo(b);
+        target.setGenService(b);
         return this;
     }
 
@@ -150,6 +150,11 @@ public class GenConfigBuilder {
 
     public GenConfigBuilder outputXmlTo(String f){
         target.setOutputXmlPath(new File(f));
+        return this;
+    }
+
+    public GenConfigBuilder silence(boolean b){
+        target.setSilence(b);
         return this;
     }
 

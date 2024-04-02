@@ -43,7 +43,7 @@ public class GeneratorServices implements Generator{
         Template t = VelocityWrapper.getTemplate("service_impl.ftl");
 
         if(opt.isEnableMybatisPlus()){
-            t = VelocityWrapper.getTemplate("service_impl_plus.ftl");
+            t = VelocityWrapper.getTemplate("service_impl.ftl");
         }
 
         VelocityWrapper.mergeAndOutput(t,vc,out);

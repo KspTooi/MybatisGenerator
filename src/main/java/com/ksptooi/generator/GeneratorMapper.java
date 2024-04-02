@@ -46,8 +46,8 @@ public class GeneratorMapper implements Generator{
         String tXmlName = "mapper_xml.ftl";
 
         if(opt.isEnableMybatisPlus()){
-            tName = "mapper_plus.ftl";
-            tXmlName = "mapper_plus_xml.ftl";
+            tName = "mapper.ftl";
+            tXmlName = "mapper_xml.ftl";
         }
 
         File out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameMapper()) + "\\"+opt.getMapperName() + ".java");

@@ -50,6 +50,7 @@ public class MtgGenOptions {
     private String projectName;
     private String templatePath; //模板文件路径
     private String templateNameSpace;  //模板文件的命名空间
+    private boolean silence; //为true 不打印输出文件日志
 
     /**
      * 组件配置
@@ -313,5 +314,13 @@ public class MtgGenOptions {
 
     public void setTemplatePath(String templatePath) {
         this.templatePath = templatePath;
+    }
+
+    public boolean isSilence() {
+        return silence;
+    }
+
+    public void setSilence(boolean silence) {
+        this.silence = silence;
     }
 }

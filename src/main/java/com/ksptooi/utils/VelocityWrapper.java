@@ -1,5 +1,6 @@
 package com.ksptooi.utils;
 
+import com.ksptooi.model.config.MtgGenOptions;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -22,7 +23,9 @@ public class VelocityWrapper {
 
     private static String namespace = null;
 
-    public static void init(String path){
+    private static MtgGenOptions opt = null;
+
+    public static void init(String path, MtgGenOptions opt){
         final Properties properties = new Properties();
         properties.setProperty("resource.loader", "file");
         properties.setProperty("file.resource.loader.description", "Velocity File Resource Loader");
@@ -33,6 +36,7 @@ public class VelocityWrapper {
         final VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.init(properties);
         ve = velocityEngine;
+        VelocityWrapper.opt = opt;
     }
 
     public static void setNamespace(String ns){
@@ -52,13 +56,17 @@ public class VelocityWrapper {
     public static void mergeAndOutput(Template t, VelocityContext vc, File output){
 
         if(output.exists()){
-            log.info("移除文件:{}",output.getAbsolutePath());
+            if(!opt.isSilence()){
+                log.info("移除文件:{}",output.getAbsolutePath());
+            }
         }
 
         File dir = output.getParentFile();
 
         if(!dir.exists()){
-            log.info("创建文件夹:{}",dir.getAbsolutePath());
+            if(!opt.isSilence()){
+                log.info("创建文件夹:{}",dir.getAbsolutePath());
+            }
             dir.mkdirs();
         }
 
@@ -71,7 +79,9 @@ public class VelocityWrapper {
         // create and write new file with contents from writer
         try (FileWriter fileWriter = new FileWriter(outputPath.toFile())) {
             fileWriter.write(writer.toString());
-            log.info("写出至:{}",output.getAbsolutePath());
+            if(!opt.isSilence()){
+                log.info("写出至:{}",output.getAbsolutePath());
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

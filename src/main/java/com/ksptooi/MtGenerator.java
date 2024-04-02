@@ -80,7 +80,7 @@ public class MtGenerator {
                 return;
             }
 
-            VelocityWrapper.init(dataSource.getTemplatePath());
+            VelocityWrapper.init(dataSource.getTemplatePath(),config);
             log.info("VE初始化成功:{}",tPath);
 
             Class.forName(dataSource.getDriverName());
@@ -131,8 +131,19 @@ public class MtGenerator {
                 throw new RuntimeException("当前不支持withImpl参数");
             }
 
+            int c = 0;
+
             for(Generator item : generators){
-                item.generate(config,fields);
+
+                if(item.enable(config)){
+                    item.generate(config,fields);
+                    c++;
+                }
+
+            }
+
+            if(config.isSilence()){
+                log.info("操作已完成 运行{}of{}个生成器",c,generators.size());
             }
 
 
