@@ -32,6 +32,7 @@ public class Application {
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
                 .tableName("oauth_clients")
+                .outputTo("C:\\shuchu").outputXmlTo(".mapper")
                 //.projectName("zsk-basic-service")
                 .enableLombok(true)
                 .enableSwagger2(true)
