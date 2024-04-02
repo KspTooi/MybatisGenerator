@@ -25,7 +25,7 @@ public class GeneratorController implements Generator{
     @Override
     public void generate(MtgGenOptions opt, List<TableField> fields) {
 
-        Template t = VelocityWrapper.getTemplate("controller.ftl");
+        Template t = VelocityWrapper.getTemplate("controller.vm");
         VelocityContext vc = VelocityWrapper.injectContext(opt, fields);
 
         File out = new File(opt.getOutputPath(),TextConv.pkgToPath(opt.getPkgNameController())+"\\"+opt.getControllerName()+".java");

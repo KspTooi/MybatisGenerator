@@ -19,7 +19,7 @@ public class GeneratorServices implements Generator{
     @Override
     public void generate(MtgGenOptions opt, List<TableField> fields) {
 
-        Template t = VelocityWrapper.getTemplate("service_impl.ftl");
+        Template t = VelocityWrapper.getTemplate("service_impl.vm");
 
         VelocityContext vc = VelocityWrapper.injectContext(opt, fields);
 

@@ -22,7 +22,7 @@ public class GeneratorEntities implements Generator{
     public void generate(MtgGenOptions opt, List<TableField> fields) {
 
 
-        Template t = VelocityWrapper.getTemplate("po.ftl");
+        Template t = VelocityWrapper.getTemplate("po.vm");
         VelocityContext vc = VelocityWrapper.injectContext(opt, fields);
 
         File out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNamePo()) + "\\"+opt.getPoName() + ".java");
@@ -31,7 +31,7 @@ public class GeneratorEntities implements Generator{
 
         if(opt.isGenVo()){
 
-            t = VelocityWrapper.getTemplate("vo.ftl");
+            t = VelocityWrapper.getTemplate("vo.vm");
 
             out = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameVo()) + "\\"+opt.getVoName() + "InVo.java");
             VelocityWrapper.mergeAndOutput(t,vc,out);

@@ -20,8 +20,8 @@ public class GeneratorMapper implements Generator{
     @Override
     public void generate(MtgGenOptions opt, List<TableField> fields) {
 
-        Template tMap = VelocityWrapper.getTemplate("mapper.ftl");
-        Template tXml = VelocityWrapper.getTemplate("mapper_xml.ftl");
+        Template tMap = VelocityWrapper.getTemplate("mapper.vm");
+        Template tXml = VelocityWrapper.getTemplate("mapper_xml.vm");
         VelocityContext vc = VelocityWrapper.injectContext(opt, fields);
 
         File oMap = new File(opt.getOutputPath(), TextConv.pkgToPath(opt.getPkgNameMapper()) + "\\"+opt.getMapperName() + ".java");
