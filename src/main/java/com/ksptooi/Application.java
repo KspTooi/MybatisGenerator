@@ -29,6 +29,7 @@ public class Application {
                 .genService(true)
                 .withImpl(false)
                 .genPo(true)
+                .genVo(true)
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
                 .tableName("oauth_clients")
