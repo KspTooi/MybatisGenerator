@@ -11,7 +11,7 @@ public class Application {
     public static void main(String[] args) {
 
         String currentDir = System.getProperty("user.dir");
-        File template = DirectoryTools.findTemplate(currentDir, "freemarker");
+        File template = DirectoryTools.findTemplate(currentDir, "velocity");
         assert template!=null;
 
         MtgDataSource ds = ConfigFactory.datasource()
@@ -32,7 +32,7 @@ public class Application {
                 .genMapper(true)
                 .packetName("com.ksptooi.app")
                 .tableName("oauth_clients")
-                .projectName("hospital-plugin-service")
+                //.projectName("projectName")
                 .enableLombok(true)
                 .enableSwagger2(true)
                 .enableMybatisPlus(true)
